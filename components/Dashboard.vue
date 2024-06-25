@@ -3,20 +3,14 @@
     <div v-if="loading" class="flex justify-center items-center h-full">
       <p>Loading...</p>
     </div>
-    <div
-      v-else-if="error"
-      class="flex justify-center items-center h-full text-red-500"
-    >
+    <div v-else-if="error" class="flex justify-center items-center h-full text-red-500">
       <p>{{ error }}</p>
     </div>
     <div v-else class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
       <div class="card">
         <div class="flex justify-start items-center bg-white">
-          <img
-            src="~/assets/images/calender.svg"
-            alt="card image"
-            class="card-image w-20 h-20 object-cover rounded-t-lg"
-          />
+          <img src="~/assets/images/calender.svg" alt="card image"
+            class="card-image w-20 h-20 object-cover rounded-t-lg" />
           <div class="p-4">
             <h2 class="card-title text-xl font-semibold mb-2">
               {{ dashboardData.all_users_count }}
@@ -27,11 +21,8 @@
       </div>
       <div class="card">
         <div class="flex justify-start items-center bg-white">
-          <img
-            src="~/assets/images/linkedin.svg"
-            alt="card image"
-            class="card-image w-20 h-20 object-cover rounded-t-lg"
-          />
+          <img src="~/assets/images/linkedin.svg" alt="card image"
+            class="card-image w-20 h-20 object-cover rounded-t-lg" />
           <div class="p-4">
             <h2 class="card-title text-xl font-semibold mb-2">
               {{ dashboardData.all_jobs_count }}
@@ -42,11 +33,7 @@
       </div>
       <div class="card">
         <div class="flex justify-start items-center bg-white">
-          <img
-            src="~/assets/images/pen.svg"
-            alt="card image"
-            class="card-image w-20 h-20 object-cover rounded-t-lg"
-          />
+          <img src="~/assets/images/pen.svg" alt="card image" class="card-image w-20 h-20 object-cover rounded-t-lg" />
           <div class="p-4">
             <h2 class="card-title text-xl font-semibold mb-2">
               {{ dashboardData.all_linkedin_jobs_count }}
@@ -57,11 +44,7 @@
       </div>
       <div class="card">
         <div class="flex justify-start items-center bg-white">
-          <img
-            src="~/assets/images/user.svg"
-            alt="card image"
-            class="card-image w-20 h-20 object-cover rounded-t-lg"
-          />
+          <img src="~/assets/images/user.svg" alt="card image" class="card-image w-20 h-20 object-cover rounded-t-lg" />
           <div class="p-4">
             <h2 class="card-title text-xl font-semibold mb-2">
               {{ dashboardData.all_indeed_jobs_count }}

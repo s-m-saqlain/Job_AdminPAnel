@@ -18,7 +18,7 @@ import axios from "axios";
 
 const route = useRoute();
 const id = ref(route.params.id);
-console.log(id.value)
+console.log(id.value);
 
 const profile = ref(null);
 const error = ref(null);
