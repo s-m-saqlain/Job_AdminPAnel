@@ -2,7 +2,7 @@
   <div class="container">
     <div v-if="loading" class="text-center">Loading...</div>
     <div v-if="error" class="text-red-500 text-center">{{ error }}</div>
-    <div v-if="profile" class="profile-detail">
+    <div v-if="!currentProfile && profile" class="profile-detail">
       <div class="lg:flex justify-start items-center">
         <button
           @click="$emit('back')"
@@ -90,10 +90,10 @@
           v-for="item in profile.all_feedbacks"
           :key="item.id"
         >
-          <p class="text-black font-bold text-gray-500 w-full">
+          <p class="text-black font-bold text-gray-500 w-full" @click="showJobDetail(item.job_id)">
             {{ item.job_title }}
           </p>
-          <p class="text-gray-500">
+          <p class="text-gray-500" @click="showJobDetail(item.job_id)">
             {{ item.feedback_text }}
           </p>
           <div class="border-b border-b-gray-400 mt-6"></div>
@@ -104,7 +104,8 @@
           <p class="text-2xl font-medium text-gray-500">Viewed Jobs:</p>
           <div class="mt-6" v-for="item in profile.viewed_jobs" :key="item.id">
             <p
-              class="text-black font-medium text-white bg-black rounded-md px-4 py-3"
+              class="text-black font-medium text-white bg-black rounded-md px-4 py-3 cursor-pointer"
+              @click="showJobDetail(item.job_id)"
             >
               {{ item.job_title }}
             </p>
@@ -116,7 +117,8 @@
           </p>
           <div class="mt-6" v-for="item in profile.saved_jobs" :key="item.id">
             <p
-              class="text-black font-medium text-white bg-gray-500 rounded-md px-4 py-3"
+              class="text-black font-medium text-white bg-gray-500 rounded-md px-4 py-3 cursor-pointer"
+              @click="showJobDetail(item.job_id)"
             >
               {{ item.job_title }}
             </p>
@@ -124,12 +126,18 @@
         </div>
       </div>
     </div>
+    <JobDetail
+      v-if="currentProfile"
+      :profileId="currentProfile"
+      @back="showProfiles"
+    />
   </div>
 </template>
 
 <script setup>
 import { ref, watch, onMounted } from "vue";
 import axios from "axios";
+import JobDetail from "./JobDetail.vue";
 
 const isActive = ref(true);
 
@@ -140,6 +148,7 @@ const props = defineProps({
 const profile = ref(null);
 const loading = ref(false);
 const error = ref(null);
+const currentProfile = ref(null);
 
 const fetchProfile = async (id) => {
   loading.value = true;
@@ -192,6 +201,14 @@ const updateProfileStatus = async () => {
     error.value = "Error updating profile status.";
     console.error(err);
   }
+};
+
+const showJobDetail = (profileId) => {
+  currentProfile.value = profileId;
+};
+
+const showProfiles = () => {
+  currentProfile.value = null;
 };
 
 onMounted(() => {

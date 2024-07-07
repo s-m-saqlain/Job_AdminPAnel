@@ -4,24 +4,28 @@
     <div v-if="error" class="text-red-500 text-center">{{ error }}</div>
     <div
       v-if="!currentProfile"
-      class="grid grid-cols-1 md:grid-cols-3 gap-4 cursor-pointer"
+      class="grid grid-cols-1 md:grid-cols-5 gap-4 cursor-pointer"
     >
       <div
         v-for="profile in profiles.results"
         :key="profile.id"
-        class="bg-white p-4 rounded-lg shadow-md"
+        class="relative bg-[#2C3146] p-4 rounded-2xl shadow-md mt-[4rem] h-[250px]"
       >
         <img
           :src="`https://kuber123.pythonanywhere.com${profile.profile}`"
           alt="Profile Picture"
-          class="w-32 h-32 object-cover rounded-full mx-auto"
+          class="absolute inset-0 -top-[4rem] w-32 h-32 object-cover rounded-full mx-auto"
         />
         <div class="text-center mt-4">
-          <h2 class="text-xl font-thin">
+          <h2 class="absolute inset-0 top-[5rem] text-xl text-white font-thin">
             {{ profile.fname }} {{ profile.lname }}
           </h2>
-          <p class="text-gray-600">{{ profile.email }}</p>
-          <div class="flex justify-center items-center">
+          <p class="absolute inset-0 top-[140px] text-gray-400">
+            {{ profile.email }}
+          </p>
+          <div
+            class="flex justify-center items-center absolute inset-0 top-[9rem]"
+          >
             <button
               @click="viewMore(profile.id)"
               class="uppercase bg-green-500 text-white w-[9rem] rounded-md font-semibold py-2 mt-4"
