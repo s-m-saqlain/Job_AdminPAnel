@@ -1,10 +1,20 @@
 <template>
   <div class="container mx-auto sm:h-full">
-    <div v-if="loading" class="text-center">Loading...</div>
+    <div v-if="loading" class="text-center h-screen">Loading...</div>
     <div v-if="error" class="text-red-500 text-center">{{ error }}</div>
-    <div v-if="!currentProfile" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div v-if="!currentProfile">
+    <div class="flex justify-end">
+      <button
+        @click="showPopup"
+        class="bg-blue-500 text-white w-44 py-2 rounded-3xl font-medium text-xl"
+      >
+        Add
+      </button>
+      <Popup :isVisible="isPopupVisible" @hide="hidePopup" />
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div
-        v-for="profile in profiles"
+        v-for="profile in profiles.results"
         :key="profile.id"
         class="bg-white p-4 rounded-lg"
       >
@@ -72,6 +82,7 @@
         </div>
       </div>
     </div>
+    </div>
     <JobDetail
       v-if="currentProfile"
       :profileId="currentProfile"
@@ -103,11 +114,13 @@
 import { ref, onMounted } from "vue";
 import axios from "axios";
 import JobDetail from "./JobDetail.vue";
+import Popup from "./Popup.vue";
 
 const profiles = ref([]);
 const loading = ref(false);
 const error = ref(null);
 const currentProfile = ref(null);
+const isPopupVisible = ref(false);
 
 const fetchProfiles = async (
   url = "https://kuber123.pythonanywhere.com/adminapp/jobs/get_all_jobs"
@@ -128,7 +141,7 @@ const fetchProfiles = async (
         Authorization: `Bearer ${token}`,
       },
     });
-    profiles.value = response.data.results;
+    profiles.value = response.data;
     console.log(profiles.value);
   } catch (err) {
     error.value = "Error fetching profiles data.";
@@ -140,6 +153,14 @@ const fetchProfiles = async (
 
 const viewMore = (profileId) => {
   currentProfile.value = profileId;
+};
+
+const showPopup = () => {
+  isPopupVisible.value = true;
+};
+
+const hidePopup = () => {
+  isPopupVisible.value = false;
 };
 
 const showProfiles = () => {
