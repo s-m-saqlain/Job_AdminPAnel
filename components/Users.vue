@@ -1,6 +1,6 @@
 <template>
   <div class="container mx-auto bg-gray-100 sm:h-full">
-    <div v-if="loading" class="text-center">Loading...</div>
+    <div v-if="loading" class="text-center h-screen">Loading...</div>
     <div v-if="error" class="text-red-500 text-center">{{ error }}</div>
     <div
       v-if="!currentProfile"

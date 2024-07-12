@@ -31,7 +31,7 @@
           <input
             v-model="form.job_title"
             type="text"
-            id="job_title"
+            id="jobTitle"
             class="mt-1 py-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
           <p v-if="errors.job_title" class="text-red-500 text-sm mt-1">
@@ -46,7 +46,7 @@
           <input
             v-model="form.company_name"
             type="text"
-            id="company_name"
+            id="companyName"
             class="mt-1 py-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
           <p v-if="errors.company_name" class="text-red-500 text-sm mt-1">
@@ -63,7 +63,7 @@
           <input
             v-model="form.company_location"
             type="text"
-            id="company_location"
+            id="companyLocation"
             class="mt-1 py-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
           <p v-if="errors.company_location" class="text-red-500 text-sm mt-1">
@@ -78,11 +78,26 @@
           <input
             v-model="form.company_url"
             type="url"
-            id="company_url"
+            id="companyUrl"
             class="mt-1 py-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
           <p v-if="errors.company_url" class="text-red-500 text-sm mt-1">
             {{ errors.company_url }}
+          </p>
+        </div>
+
+        <div>
+          <label for="jobUrl" class="block text-sm font-medium text-white"
+            >Job URL</label
+          >
+          <input
+            v-model="form.job_url"
+            type="url"
+            id="jobUrl"
+            class="mt-1 py-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          />
+          <p v-if="errors.job_url" class="text-red-500 text-sm mt-1">
+            {{ errors.job_url }}
           </p>
         </div>
 
@@ -93,7 +108,7 @@
           <input
             v-model="form.job_function"
             type="text"
-            id="job_function"
+            id="jobFunction"
             class="mt-1 py-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
           <p v-if="errors.job_function" class="text-red-500 text-sm mt-1">
@@ -108,7 +123,7 @@
           <input
             v-model="form.industries"
             type="text"
-            id="industries"
+            id="industry"
             class="mt-1 py-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
           <p v-if="errors.industries" class="text-red-500 text-sm mt-1">
@@ -132,28 +147,13 @@
         </div>
 
         <div>
-          <label for="salary" class="block text-sm font-medium text-white"
-            >Salary</label
-          >
-          <input
-            v-model="form.salary"
-            type="text"
-            id="salary"
-            class="mt-1 py-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-          />
-          <p v-if="errors.salary" class="text-red-500 text-sm mt-1">
-            {{ errors.salary }}
-          </p>
-        </div>
-
-        <div>
           <label for="jobDays" class="block text-sm font-medium text-white"
             >jobDays</label
           >
           <input
             v-model="form.job_days"
             type="text"
-            id="job_days"
+            id="applicants"
             class="mt-1 py-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
           <p v-if="errors.job_days" class="text-red-500 text-sm mt-1">
@@ -167,7 +167,7 @@
           >
           <select
             v-model="form.employment_type"
-            id="employment_type"
+            id="employeeType"
             class="mt-1 py-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           >
             <option value="">Select Employee Type</option>
@@ -188,7 +188,7 @@
           >
           <select
             v-model="form.seniority_level"
-            id="seniority_level"
+            id="seniorityLevel"
             class="mt-1 py-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           >
             <option value="">Select Seniority Level</option>
@@ -209,13 +209,13 @@
           >
           <select
             v-model="form.listing_platform"
-            id="listing_platform"
+            id="listingPlatform"
             class="mt-1 py-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           >
             <option value="">Select Listing Platform</option>
-            <option value="LinkedIn">LinkedIn</option>
-            <option value="Indeed">Indeed</option>
-            <option value="Glassdoor">Glassdoor</option>
+            <option value="linkedin">LinkedIn</option>
+            <option value="indeed">Indeed</option>
+            <option value="glassdoor">Glassdoor</option>
           </select>
           <p v-if="errors.listing_platform" class="text-red-500 text-sm mt-1">
             {{ errors.listing_platform }}
@@ -240,7 +240,7 @@
             {{ errors.city }}
           </p>
         </div>
-        <div class="mt-2">
+        <!-- <div class="mt-2">
           <div v-if="editor" class="text-white w-64">
             <button
               @click="editor.chain().focus().toggleBold().run()"
@@ -361,8 +361,8 @@
               redo
             </button>
           </div>
-        </div>
-        <div v-if="editor" class="text-black w-full bg-white mx-auto">
+        </div> -->
+        <!-- <div v-if="editor" class="text-black w-full bg-white mx-auto">
           <div>
             <label
               for="jobDescription"
@@ -370,11 +370,11 @@
               >Job Description</label
             >
             <EditorContent v-model="form.job_description" :editor="editor" />
-            <!-- <p v-if="errors.job_description" class="text-red-500 text-sm mt-1">
+            <p v-if="errors.job_description" class="text-red-500 text-sm mt-1">
               {{ errors.job_description }}
-            </p> -->
+            </p>
           </div>
-        </div>
+        </div> -->
 
         <div>
           <button
@@ -390,7 +390,7 @@
 </template>
 
 <script setup>
-import { ref, onBeforeUnmount } from "vue";
+import { ref, watch, onBeforeUnmount } from "vue";
 import { useEditor, EditorContent } from "@tiptap/vue-3";
 import StarterKit from "@tiptap/starter-kit";
 import { defineProps, defineEmits } from "vue";
@@ -401,6 +401,7 @@ const form = ref({
   company_name: "",
   company_location: "",
   company_url: "",
+  job_url: "",
   job_function: "",
   industries: "",
   applicants: "",
@@ -408,12 +409,15 @@ const form = ref({
   employment_type: "",
   seniority_level: "",
   listing_platform: "",
-  salary: "",
   city: "",
-  job_description: "",
+  // job_description: "",
 });
 
+const forms = ref({ ...form });
+
 const errors = ref({});
+
+const response = ref();
 
 const validateForm = () => {
   errors.value = {};
@@ -440,6 +444,7 @@ const hidePopup = () => {
 const usePostJob = async (formData) => {
   const isLoading = ref(false);
   const error = ref(null);
+  let response = null;
 
   try {
     isLoading.value = true;
@@ -449,15 +454,12 @@ const usePostJob = async (formData) => {
       formData,
       {
         headers: {
-          // "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Fixed syntax here
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       }
     );
-
     if (response.status !== 200) {
-      console.log(response.data); // Log the response data for debugging
-
       throw new Error(response.data.detail || "Failed to post job");
     }
 
@@ -471,11 +473,9 @@ const usePostJob = async (formData) => {
 };
 
 const handleSubmit = async () => {
-  console.log("Form submission started");
-  form.value.job_description = editor.value.getHTML();
   if (validateForm()) {
-    console.log("Form is valid");
-    const response = await usePostJob(form.value); // Pass form.value here
+    // form.value.job_description = editor.value.getHTML();
+    const response = await usePostJob(form.value);
     console.log(response);
 
     if (response) {
@@ -488,23 +488,25 @@ const handleSubmit = async () => {
       }
 
       // Clear editor content
-      editor.value.chain().setContent("").run();
-    } else {
-      console.log("Form submission failed");
+      // editor.chain().setContent("").run();
     }
-  } else {
-    console.log("Form validation failed", errors.value);
   }
 };
 
-const editor = useEditor({
-  content: "<p>I'm running Tiptap with Vue.js. 🎉</p>",
-  extensions: [StarterKit],
-});
+// const addToEditor = (html) => {
+//   if (editor) {
+//     editor.chain().focus().insertContent(html).run();
+//   }
+// };
 
-onBeforeUnmount(() => {
-  if (editor.value) editor.value.destroy();
-});
+// const editor = useEditor({
+//   content: "<p>I'm running Tiptap with Vue.js. 🎉</p>",
+//   extensions: [StarterKit],
+// });
+
+// onBeforeUnmount(() => {
+//   if (editor.value) editor.value.destroy();
+// });
 </script>
 
 <style scoped>
