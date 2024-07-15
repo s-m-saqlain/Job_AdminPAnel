@@ -175,30 +175,43 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, reactive, watch, onMounted } from "vue";
 import DOMPurify from "dompurify";
 import axios from "axios";
 import ProfileDetail from "./ProfileDetail.vue";
 
-const formattedContent = ref("");
-const htmlContent = ref("");
+// Define interfaces for the response data structure
+interface ProfileData {
+  id: string;
+  job_description: string;
+  links: string;
+  company_url: string;
+  // Add other fields as necessary
+}
 
-const props = defineProps({
-  profileId: String,
-});
+interface ProfileResponse {
+  data: ProfileData;
+}
 
-const profile = ref(null);
-const loading = ref(false);
-const error = ref(null);
-const currentProfile = ref(null);
+const formattedContent = ref<string>("");
+const htmlContent = ref<string>("");
+
+const props = defineProps<{
+  profileId: string;
+}>();
+
+const profile = ref<ProfileResponse | null>(null);
+const loading = ref<boolean>(false);
+const error = ref<string | null>(null);
+const currentProfile = ref<string | null>(null);
 
 const jobData = reactive({
   job_description: "",
   links: "",
 });
 
-const formattedJobDescription = ref("");
+const formattedJobDescription = ref<string>("");
 
 const joburl = async () => {
   if (profile.value) {
@@ -212,7 +225,7 @@ const companyurl = async () => {
   }
 };
 
-const fetchProfile = async (id) => {
+const fetchProfile = async (id: string) => {
   loading.value = true;
   error.value = null;
 
@@ -224,7 +237,7 @@ const fetchProfile = async (id) => {
   }
 
   try {
-    const response = await axios.get(
+    const response = await axios.get<ProfileResponse>(
       `https://kuber123.pythonanywhere.com/adminapp/jobs/get_job_detail?id=${id}`,
       {
         headers: {
@@ -233,10 +246,9 @@ const fetchProfile = async (id) => {
       }
     );
     profile.value = response.data;
-    console.log(response);
     htmlContent.value = response.data.data.job_description; // Adjust according to your data structure
     // formattedContent.value = DOMPurify.sanitize(htmlContent, { RETURN_DOM_FRAGMENT: true }).textContent.trim();
-    //   console.log(formattedContent)
+    // console.log(formattedContent)
   } catch (err) {
     error.value = "Error fetching profile data.";
     console.error(err);
@@ -245,7 +257,7 @@ const fetchProfile = async (id) => {
   }
 };
 
-const showJobDetail = (profileId) => {
+const showJobDetail = (profileId: string) => {
   currentProfile.value = profileId;
 };
 

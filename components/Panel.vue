@@ -214,24 +214,23 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import axios from "axios";
-import { ref, onMounted } from "vue";
+import { ref, computed, onMounted } from "vue";
 import Dashboard from "~/components/Dashboard.vue";
 import Users from "~/components/Users.vue";
 import Jobs from "~/components/Jobs.vue";
 import Feedback from "~/components/Feedback.vue";
 import Profile from "~/components/Profile.vue";
-
 import { useRouter } from "vue-router";
 
 const router = useRouter();
 
-const sidebarOpen = ref(false);
+const sidebarOpen = ref<boolean>(false);
 
-const loading = ref(true);
-const error = ref(null);
-const profile = ref(null);
+const loading = ref<boolean>(true);
+const error = ref<string | null>(null);
+const profile = ref<any>(null);
 
 const profileImageUrl = computed(() => {
   return profile.value && profile.value.data.profile
@@ -258,7 +257,6 @@ onMounted(async () => {
     );
     console.log(response);
     profile.value = response.data;
-    // localStorage.setItem("profile", JSON.stringify(profile.value));
     loading.value = false;
   } catch (err) {
     error.value = "Error fetching profile data.";
@@ -267,11 +265,11 @@ onMounted(async () => {
   }
 });
 
-const isDashboardVisible = ref(false);
-const isFeedbackVisible = ref(false);
-const isJobsVisible = ref(false);
-const isUsersVisible = ref(false);
-const isProfileVisible = ref(false);
+const isDashboardVisible = ref<boolean>(false);
+const isFeedbackVisible = ref<boolean>(false);
+const isJobsVisible = ref<boolean>(false);
+const isUsersVisible = ref<boolean>(false);
+const isProfileVisible = ref<boolean>(false);
 
 const toggleSidebar = () => {
   sidebarOpen.value = !sidebarOpen.value;
@@ -321,7 +319,7 @@ const loadProfile = () => {
   isProfileVisible.value = true;
 };
 
-const logout = async (event) => {
+const logout = async (event: Event) => {
   event.preventDefault();
 
   const token = localStorage.getItem("token");

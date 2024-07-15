@@ -118,24 +118,34 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted } from "vue";
 import axios from "axios";
 import JobDetail from "./JobDetail.vue";
 import Popup from "./Popup.vue";
 import UpdatePopup from "./Update_Popup.vue";
 
-const profiles = ref([]);
-const loading = ref(false);
-const error = ref(null);
-const currentProfile = ref(null);
-const isPopupVisible = ref(false);
-const updateisPopupVisible = ref(false);
-const updateselectedProfileId = ref(null);
+// Define interfaces for the response data structure
+interface Profile {
+  id: string;
+  // Define other fields based on your data structure
+}
+
+interface ProfilesResponse {
+  data: Profile[];
+}
+
+const profiles = ref<Profile[]>([]);
+const loading = ref<boolean>(false);
+const error = ref<string | null>(null);
+const currentProfile = ref<string | null>(null);
+const isPopupVisible = ref<boolean>(false);
+const updateisPopupVisible = ref<boolean>(false);
+const updateselectedProfileId = ref<string | null>(null);
 
 const fetchProfiles = async (
-  url = "https://kuber123.pythonanywhere.com/adminapp/jobs/get_all_jobs"
-) => {
+  url: string = "https://kuber123.pythonanywhere.com/adminapp/jobs/get_all_jobs"
+): Promise<void> => {
   loading.value = true;
   error.value = null;
 
@@ -147,7 +157,7 @@ const fetchProfiles = async (
   }
 
   try {
-    const response = await axios.get(url, {
+    const response = await axios.get<ProfilesResponse>(url, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -162,7 +172,7 @@ const fetchProfiles = async (
   }
 };
 
-const handleClick = async (profile) => {
+const handleClick = async (profile: Profile): Promise<void> => {
   try {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -183,29 +193,29 @@ const handleClick = async (profile) => {
 
     console.log("Delete successful", response.data);
     await fetchProfiles();
-  } catch (error) {
-    console.error("Error deleting profile", error);
+  } catch (err) {
+    console.error("Error deleting profile", err);
   }
 };
 
-const viewMore = (profileId) => {
+const viewMore = (profileId: string): void => {
   currentProfile.value = profileId;
 };
 
-const showPopup = () => {
+const showPopup = (): void => {
   isPopupVisible.value = true;
 };
 
-const updateshowPopup = (profileId) => {
+const updateshowPopup = (profileId: string): void => {
   updateselectedProfileId.value = profileId;
   updateisPopupVisible.value = true;
 };
 
-const hidePopup = () => {
+const hidePopup = (): void => {
   isPopupVisible.value = false;
 };
 
-const showProfiles = () => {
+const showProfiles = (): void => {
   currentProfile.value = null;
 };
 

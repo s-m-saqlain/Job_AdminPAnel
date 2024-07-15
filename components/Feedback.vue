@@ -73,13 +73,29 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import axios from "axios";
 import { ref, onMounted } from "vue";
 
-const dashboardData = ref(null);
-const loading = ref(true);
-const error = ref(null);
+interface Feedback {
+  id: number;
+  user: string;
+  feedback: string;
+  rating: number;
+  created_at: string;
+  // Add other fields as necessary
+}
+
+interface FeedbackResponse {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: Feedback[];
+}
+
+const dashboardData = ref<FeedbackResponse | null>(null);
+const loading = ref<boolean>(true);
+const error = ref<string | null>(null);
 
 onMounted(async () => {
   const token = localStorage.getItem("token");
@@ -90,7 +106,7 @@ onMounted(async () => {
   }
 
   try {
-    const response = await axios.get(
+    const response = await axios.get<FeedbackResponse>(
       "https://kuber123.pythonanywhere.com/adminapp/job-feedback/user_all_feedbacks/?page=3",
       {
         headers: {

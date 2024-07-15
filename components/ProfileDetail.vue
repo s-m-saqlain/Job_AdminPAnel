@@ -90,7 +90,10 @@
           v-for="item in profile.all_feedbacks"
           :key="item.id"
         >
-          <p class="text-black font-bold text-gray-500 w-full" @click="showJobDetail(item.job_id)">
+          <p
+            class="text-black font-bold text-gray-500 w-full"
+            @click="showJobDetail(item.job_id)"
+          >
             {{ item.job_title }}
           </p>
           <p class="text-gray-500" @click="showJobDetail(item.job_id)">
@@ -134,23 +137,23 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, watch, onMounted } from "vue";
 import axios from "axios";
 import JobDetail from "./JobDetail.vue";
 
-const isActive = ref(true);
+const isActive = ref<boolean>(true);
 
-const props = defineProps({
-  profileId: String,
-});
+const props = defineProps<{
+  profileId: string;
+}>();
 
-const profile = ref(null);
-const loading = ref(false);
-const error = ref(null);
-const currentProfile = ref(null);
+const profile = ref<any>(null);
+const loading = ref<boolean>(false);
+const error = ref<string | null>(null);
+const currentProfile = ref<string | null>(null);
 
-const fetchProfile = async (id) => {
+const fetchProfile = async (id: string) => {
   loading.value = true;
   error.value = null;
 
@@ -203,7 +206,7 @@ const updateProfileStatus = async () => {
   }
 };
 
-const showJobDetail = (profileId) => {
+const showJobDetail = (profileId: string) => {
   currentProfile.value = profileId;
 };
 

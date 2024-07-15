@@ -63,18 +63,23 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted } from "vue";
 import axios from "axios";
 import ProfileDetail from "./ProfileDetail.vue";
 
-const profiles = ref([]);
-const loading = ref(false);
-const error = ref(null);
-const currentProfile = ref(null);
+interface Profile {
+  id: number;
+  // Add other fields as needed
+}
+
+const profiles = ref<Profile[]>([]);
+const loading = ref<boolean>(false);
+const error = ref<string | null>(null);
+const currentProfile = ref<number | null>(null);
 
 const fetchProfiles = async (
-  url = "https://kuber123.pythonanywhere.com/adminapp/users/profiles"
+  url: string = "https://kuber123.pythonanywhere.com/adminapp/users/profiles"
 ) => {
   loading.value = true;
   error.value = null;
@@ -101,7 +106,7 @@ const fetchProfiles = async (
   }
 };
 
-const viewMore = (profileId) => {
+const viewMore = (profileId: number) => {
   currentProfile.value = profileId;
 };
 

@@ -389,14 +389,35 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, onBeforeUnmount } from "vue";
 import { useEditor, EditorContent } from "@tiptap/vue-3";
 import StarterKit from "@tiptap/starter-kit";
 import { defineProps, defineEmits } from "vue";
 import axios from "axios";
 
-const form = ref({
+interface Form {
+  job_title: string;
+  company_name: string;
+  company_location: string;
+  company_url: string;
+  job_function: string;
+  industries: string;
+  applicants: string;
+  job_days: string;
+  employment_type: string;
+  seniority_level: string;
+  listing_platform: string;
+  salary: string;
+  city: string;
+  job_description: string;
+}
+
+interface Errors {
+  [key: string]: string;
+}
+
+const form = ref<Form>({
   job_title: "",
   company_name: "",
   company_location: "",
@@ -413,13 +434,13 @@ const form = ref({
   job_description: "",
 });
 
-const errors = ref({});
+const errors = ref<Errors>({});
 
 const validateForm = () => {
   errors.value = {};
 
   for (const key in form.value) {
-    if (!form.value[key]) {
+    if (!form.value[key as keyof Form]) {
       errors.value[key] = `${key.replace(/([A-Z])/g, " $1")} is required`;
     }
   }
@@ -427,9 +448,9 @@ const validateForm = () => {
   return Object.keys(errors.value).length === 0;
 };
 
-const props = defineProps({
-  isVisible: Boolean,
-});
+const props = defineProps<{
+  isVisible: boolean;
+}>();
 
 const emit = defineEmits(["hide"]);
 
@@ -437,9 +458,9 @@ const hidePopup = () => {
   emit("hide");
 };
 
-const usePostJob = async (formData) => {
-  const isLoading = ref(false);
-  const error = ref(null);
+const usePostJob = async (formData: Form) => {
+  const isLoading = ref<boolean>(false);
+  const error = ref<string | null>(null);
 
   try {
     isLoading.value = true;
@@ -449,20 +470,18 @@ const usePostJob = async (formData) => {
       formData,
       {
         headers: {
-          // "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Fixed syntax here
+          Authorization: `Bearer ${token}`,
         },
       }
     );
 
     if (response.status !== 200) {
-      console.log(response.data); // Log the response data for debugging
-
+      console.log(response.data);
       throw new Error(response.data.detail || "Failed to post job");
     }
 
     return response.data;
-  } catch (err) {
+  } catch (err: any) {
     error.value = err.message;
     return null;
   } finally {
@@ -472,23 +491,21 @@ const usePostJob = async (formData) => {
 
 const handleSubmit = async () => {
   console.log("Form submission started");
-  form.value.job_description = editor.value.getHTML();
+  form.value.job_description = editor.value?.getHTML() || "";
   if (validateForm()) {
     console.log("Form is valid");
-    const response = await usePostJob(form.value); // Pass form.value here
+    const response = await usePostJob(form.value);
     console.log(response);
 
     if (response) {
       console.log("Form submitted successfully:", response);
       hidePopup();
 
-      // Clear form fields
       for (const key in form.value) {
-        form.value[key] = "";
+        form.value[key as keyof Form] = "";
       }
 
-      // Clear editor content
-      editor.value.chain().setContent("").run();
+      editor.value?.chain().setContent("").run();
     } else {
       console.log("Form submission failed");
     }

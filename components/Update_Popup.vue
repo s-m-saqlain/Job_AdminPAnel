@@ -423,26 +423,42 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, defineProps, defineEmits, onMounted, onBeforeUnmount } from "vue";
 import { useEditor, EditorContent } from "@tiptap/vue-3";
 import StarterKit from "@tiptap/starter-kit";
 import axios from "axios";
 
-const props = defineProps({
-  visible: {
-    type: Boolean,
-    required: true,
-  },
-  profileId: {
-    type: Number,
-    required: true,
-  },
-});
+interface Form {
+  id: string | number;
+  job_title: string;
+  company_name: string;
+  company_location: string;
+  company_url: string;
+  job_function: string;
+  industries: string;
+  applicants: string;
+  job_days: string;
+  employment_type: string;
+  seniority_level: string;
+  listing_platform: string;
+  salary: string;
+  city: string;
+  job_description: string;
+}
+
+interface Errors {
+  [key: string]: string;
+}
+
+const props = defineProps<{
+  visible: boolean;
+  profileId: number;
+}>();
 
 const emit = defineEmits(["close"]);
 
-const form = ref({
+const form = ref<Form>({
   id: "",
   job_title: "",
   company_name: "",
@@ -460,16 +476,16 @@ const form = ref({
   job_description: "",
 });
 
-const errors = ref({});
+const errors = ref<Errors>({});
 const editor = useEditor({
   content: "",
   extensions: [StarterKit],
 });
 
-const validateForm = () => {
+const validateForm = (): boolean => {
   errors.value = {};
   for (const key in form.value) {
-    if (!form.value[key]) {
+    if (!form.value[key as keyof Form]) {
       errors.value[key] = `${key.replace(/([A-Z])/g, " $1")} is required`;
     }
   }
@@ -493,20 +509,23 @@ const fetchJobDetails = async () => {
     // Populate the form with job details
     for (const key in jobDetails) {
       if (form.value.hasOwnProperty(key)) {
-        form.value[key] = jobDetails[key];
+        form.value[key as keyof Form] = jobDetails[key];
       }
     }
 
     // Populate the editor with the job description
-    editor.value.commands.setContent(jobDetails.job_description);
+    editor.value?.commands.setContent(jobDetails.job_description);
   } catch (error) {
     console.error("Failed to fetch job details:", error);
   }
 };
 
 const handleSubmit = async () => {
-  form.value.job_description = editor.value.getHTML();
+  if (editor.value) {
+    form.value.job_description = editor.value.getHTML();
+  }
   form.value.id = props.profileId;
+
   if (validateForm()) {
     try {
       const token = localStorage.getItem("token");
@@ -522,13 +541,13 @@ const handleSubmit = async () => {
 
       if (response.status === 200) {
         console.log("Form updated successfully:", response.data);
-        emit("hide");
+        emit("close");
 
         // Clear form fields and editor content
         for (const key in form.value) {
-          form.value[key] = "";
+          form.value[key as keyof Form] = "";
         }
-        editor.value.commands.clearContent();
+        editor.value?.commands.clearContent();
       } else {
         throw new Error(response.data.detail || "Failed to update job");
       }
