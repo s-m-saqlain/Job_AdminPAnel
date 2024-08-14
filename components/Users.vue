@@ -78,8 +78,12 @@ const loading = ref<boolean>(false);
 const error = ref<string | null>(null);
 const currentProfile = ref<number | null>(null);
 
+import { useRuntimeConfig } from '#app'
+const config = useRuntimeConfig()
+const baseURL = config.public.baseURL
+
 const fetchProfiles = async (
-  url: string = "https://kuber123.pythonanywhere.com/adminapp/users/profiles"
+  url: string = `${baseURL}adminapp/users/profiles`
 ) => {
   loading.value = true;
   error.value = null;

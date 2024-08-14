@@ -482,6 +482,10 @@ const editor = useEditor({
   extensions: [StarterKit],
 });
 
+import { useRuntimeConfig } from '#app'
+const config = useRuntimeConfig()
+const baseURL = config.public.baseURL
+
 const validateForm = (): boolean => {
   errors.value = {};
   for (const key in form.value) {
@@ -496,7 +500,7 @@ const fetchJobDetails = async () => {
   const token = localStorage.getItem("token");
   try {
     const response = await axios.get(
-      `https://kuber123.pythonanywhere.com/adminapp/jobs/get_job_detail?id=${props.profileId}`,
+      `${baseURL}adminapp/jobs/get_job_detail?id=${props.profileId}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -530,7 +534,7 @@ const handleSubmit = async () => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.put(
-        "https://kuber123.pythonanywhere.com/adminapp/jobs/update_job/",
+        `${baseURL}adminapp/jobs/update_job/`,
         form.value,
         {
           headers: {

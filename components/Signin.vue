@@ -102,15 +102,16 @@ const username = ref<string>("");
 const password = ref<string>("");
 const errorMessage = ref<string>("");
 
+import { useRuntimeConfig } from "#app";
+const config = useRuntimeConfig();
+const baseURL = config.public.baseURL;
+
 const login = async (): Promise<void> => {
   try {
-    const response = await axios.post(
-      "https://kuber123.pythonanywhere.com/adminapp/admin/login/",
-      {
-        email: username.value,
-        password: password.value,
-      }
-    );
+    const response = await axios.post(`${baseURL}adminapp/admin/login/`, {
+      email: username.value,
+      password: password.value,
+    });
     const token: string = response.data.token;
     console.log(token);
     localStorage.setItem("token", token);

@@ -436,6 +436,10 @@ const form = ref<Form>({
 
 const errors = ref<Errors>({});
 
+import { useRuntimeConfig } from '#app'
+const config = useRuntimeConfig()
+const baseURL = config.public.baseURL
+
 const validateForm = () => {
   errors.value = {};
 
@@ -466,7 +470,7 @@ const usePostJob = async (formData: Form) => {
     isLoading.value = true;
     const token = localStorage.getItem("token");
     const response = await axios.post(
-      "https://kuber123.pythonanywhere.com/adminapp/jobs/add_job/",
+      `${baseURL}adminapp/jobs/add_job/`,
       formData,
       {
         headers: {

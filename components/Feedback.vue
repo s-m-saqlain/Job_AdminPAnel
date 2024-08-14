@@ -12,7 +12,7 @@
         class="relative bg-[#2C3146] p-4 rounded-2xl shadow-md mt-[1rem] sm:h-[190px] h-[270px] lg:w-[520px] sm:w-96 w-[260px] lg:mx-0 sm:mx-8 mx-auto"
       >
         <img
-          :src="`https://kuber123.pythonanywhere.com${feedback.user_detail.profile}`"
+          :src="`${baseURL}${feedback.user_detail.profile}`"
           alt="Profile Picture"
           class="absolute inset-0 sm:top-[57px] top-[95px] lg:-left-[510px] sm:-left-[390px] -left-[260px] w-20 h-20 object-cover rounded-full mx-auto"
         />
@@ -97,6 +97,10 @@ const dashboardData = ref<FeedbackResponse | null>(null);
 const loading = ref<boolean>(true);
 const error = ref<string | null>(null);
 
+import { useRuntimeConfig } from "#app";
+const config = useRuntimeConfig();
+const baseURL = config.public.baseURL;
+
 onMounted(async () => {
   const token = localStorage.getItem("token");
   if (!token) {
@@ -107,7 +111,7 @@ onMounted(async () => {
 
   try {
     const response = await axios.get<FeedbackResponse>(
-      "https://kuber123.pythonanywhere.com/adminapp/job-feedback/user_all_feedbacks/?page=3",
+      `${baseURL}adminapp/job-feedback/user_all_feedbacks/?page=3`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

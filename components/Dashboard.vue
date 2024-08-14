@@ -77,6 +77,7 @@
 <script setup lang="ts">
 import axios from "axios";
 import { ref, onMounted } from "vue";
+import { useRuntimeConfig } from '#app'
 
 interface DashboardData {
   // Define the structure of your dashboard data here
@@ -89,6 +90,8 @@ interface DashboardData {
 const dashboardData = ref<DashboardData | null>(null);
 const loading = ref<boolean>(true);
 const error = ref<string | null>(null);
+const config = useRuntimeConfig()
+const baseURL = config.public.baseURL
 
 onMounted(async () => {
   const token = localStorage.getItem("token");
@@ -100,7 +103,7 @@ onMounted(async () => {
 
   try {
     const response = await axios.get<DashboardData>(
-      "https://kuber123.pythonanywhere.com/adminapp/users/dashboard",
+      `${baseURL}adminapp/users/dashboard`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

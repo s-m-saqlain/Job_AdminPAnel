@@ -27,7 +27,7 @@
       <div class="lg:flex justify-between items-center">
         <div class="lg:flex justify-start gap-3">
           <img
-            :src="`https://kuber123.pythonanywhere.com${profile.profile}`"
+            :src="`${baseURL}${profile.profile}`"
             alt="Profile Picture"
             class="w-32 h-32 object-cover bg-white rounded-full"
           />
@@ -144,6 +144,10 @@ import JobDetail from "./JobDetail.vue";
 
 const isActive = ref<boolean>(true);
 
+import { useRuntimeConfig } from '#app'
+const config = useRuntimeConfig()
+const baseURL = config.public.baseURL
+
 const props = defineProps<{
   profileId: string;
 }>();
@@ -166,7 +170,7 @@ const fetchProfile = async (id: string) => {
 
   try {
     const response = await axios.get(
-      `https://kuber123.pythonanywhere.com/adminapp/users/get_user_detail/?id=${id}`,
+      `${baseURL}adminapp/users/get_user_detail/?id=${id}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -192,7 +196,7 @@ const updateProfileStatus = async () => {
 
   try {
     await axios.put(
-      `https://kuber123.pythonanywhere.com/adminapp/users/update_user_status/`,
+      `${baseURL}adminapp/users/update_user_status/`,
       { id: props.profileId, status: isActive.value },
       {
         headers: {

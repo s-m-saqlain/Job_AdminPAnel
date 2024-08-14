@@ -197,6 +197,10 @@ interface ProfileResponse {
 const formattedContent = ref<string>("");
 const htmlContent = ref<string>("");
 
+import { useRuntimeConfig } from '#app'
+const config = useRuntimeConfig()
+const baseURL = config.public.baseURL
+
 const props = defineProps<{
   profileId: string;
 }>();
@@ -238,7 +242,7 @@ const fetchProfile = async (id: string) => {
 
   try {
     const response = await axios.get<ProfileResponse>(
-      `https://kuber123.pythonanywhere.com/adminapp/jobs/get_job_detail?id=${id}`,
+      `${baseURL}adminapp/jobs/get_job_detail?id=${id}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

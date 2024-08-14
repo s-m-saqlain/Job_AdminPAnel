@@ -24,6 +24,10 @@ const profile = ref(null);
 const error = ref(null);
 const loading = ref(false);
 
+import { useRuntimeConfig } from '#app'
+const config = useRuntimeConfig()
+const baseURL = config.public.baseURL
+
 const fetchProfile = async () => {
   loading.value = true;
   error.value = null;
@@ -37,7 +41,7 @@ const fetchProfile = async () => {
 
   try {
     const response = await axios.get(
-      `https://kuber123.pythonanywhere.com/adminapp/users/get_user_detail/${id.value}`,
+      `${baseURL}adminapp/users/get_user_detail/${id.value}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

@@ -143,8 +143,12 @@ const isPopupVisible = ref<boolean>(false);
 const updateisPopupVisible = ref<boolean>(false);
 const updateselectedProfileId = ref<string | null>(null);
 
+import { useRuntimeConfig } from '#app'
+const config = useRuntimeConfig()
+const baseURL = config.public.baseURL
+
 const fetchProfiles = async (
-  url: string = "https://kuber123.pythonanywhere.com/adminapp/jobs/get_all_jobs"
+  url: string = `${baseURL}adminapp/jobs/get_all_jobs`
 ): Promise<void> => {
   loading.value = true;
   error.value = null;
@@ -180,7 +184,7 @@ const handleClick = async (profile: Profile): Promise<void> => {
     }
 
     const response = await axios.delete(
-      "https://kuber123.pythonanywhere.com/adminapp/jobs/delete_job/",
+      `${baseURL}adminapp/jobs/delete_job/`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

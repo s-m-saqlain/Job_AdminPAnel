@@ -55,3 +55,107 @@ const fetchProfile = async () => {
 
 onMounted(fetchProfile);
 </script>
+
+
+
+
+
+
+
+
+
+//
+<script setup lang="ts">
+// import axios from 'axios';
+// import { ref, onMounted } from 'vue';
+// import { useAuth } from '~/composables/useAuth';
+
+// interface DashboardData {
+//   all_users_count: number;
+//   all_jobs_count: number;
+//   all_linkedin_jobs_count: number;
+//   all_indeed_jobs_count: number;
+// }
+
+// const dashboardData = ref<DashboardData | null>(null);
+// const loading = ref<boolean>(true);
+// const error = ref<string | null>(null);
+// const { logout } = useAuth();
+
+// onMounted(async () => {
+//   const token = localStorage.getItem('token');
+//   if (!token) {
+//     error.value = 'No token found. Please log in.';
+//     loading.value = false;
+//     logout(); // Log out if no token found
+//     return;
+//   }
+
+//   try {
+//     const response = await axios.get<DashboardData>(
+//       'https://kuber123.pythonanywhere.com/adminapp/users/dashboard',
+//       {
+//         headers: {
+//           Authorization: `Bearer ${token}`,
+//         },
+//       }
+//     );
+//     dashboardData.value = response.data;
+//   } catch (err) {
+//     error.value = 'Error fetching dashboard data.';
+//     console.error(err);
+//   } finally {
+//     loading.value = false;
+//   }
+// });
+//
+</script>
+
+
+
+
+
+
+
+<script setup lang="ts">
+import axios from "axios";
+import { ref, onMounted } from "vue";
+
+interface DashboardData {
+  // Define the structure of your dashboard data here
+  // Example:
+  // id: number;
+  // name: string;
+  // ...
+}
+
+const dashboardData = ref<DashboardData | null>(null);
+const loading = ref<boolean>(true);
+const error = ref<string | null>(null);
+
+onMounted(async () => {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    error.value = "No token found. Please log in.";
+    loading.value = false;
+    return;
+  }
+
+  try {
+    const response = await axios.get<DashboardData>(
+      "https://kuber123.pythonanywhere.com/adminapp/users/dashboard",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    dashboardData.value = response.data;
+  } catch (err) {
+    error.value = "Error fetching dashboard data.";
+    console.error(err);
+  } finally {
+    loading.value = false;
+  }
+});
+</script>

@@ -232,9 +232,13 @@ const loading = ref<boolean>(true);
 const error = ref<string | null>(null);
 const profile = ref<any>(null);
 
+import { useRuntimeConfig } from '#app'
+const config = useRuntimeConfig()
+const baseURL = config.public.baseURL
+
 const profileImageUrl = computed(() => {
   return profile.value && profile.value.data.profile
-    ? `https://kuber123.pythonanywhere.com${profile.value.data.profile}`
+    ? `${baseURL}${profile.value.data.profile}`
     : "";
 });
 
@@ -248,7 +252,7 @@ onMounted(async () => {
 
   try {
     const response = await axios.get(
-      "https://kuber123.pythonanywhere.com/adminapp/adminapi/profile",
+      `${baseURL}adminapp/adminapi/profile`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -330,7 +334,7 @@ const logout = async (event: Event) => {
 
   try {
     const response = await axios.get(
-      "https://kuber123.pythonanywhere.com/adminapp/adminapi/admin_logout/",
+      `${baseURL}adminapp/adminapi/admin_logout/`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

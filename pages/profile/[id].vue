@@ -3,7 +3,7 @@
     <div v-if="loading" class="text-center">Loading...</div>
     <div v-if="error" class="text-red-500 text-center">{{ error }}</div>
     <div v-if="profile" class="profile-detail">
-      <img :src="`https://kuber123.pythonanywhere.com${profile.profile}`" alt="Profile Picture"
+      <img :src="`${baseURL} ${profile.profile}`" alt="Profile Picture"
         class="w-32 h-32 object-cover rounded-full mx-auto" />
       <div class="text-center mt-4">
         <h2 class="text-xl font-semibold">
@@ -26,6 +26,10 @@ const error = ref(null);
 
 const route = useRoute();
 
+import { useRuntimeConfig } from '#app'
+const config = useRuntimeConfig()
+const baseURL = config.public.baseURL
+
 const fetchProfile = async (id) => {
   loading.value = true;
   error.value = null;
@@ -38,7 +42,7 @@ const fetchProfile = async (id) => {
   }
 
   try {
-    const response = await axios.get(`https://kuber123.pythonanywhere.com/adminapp/users/get_user_detail/?id=${id}`, {
+    const response = await axios.get(`${baseURL}adminapp/users/get_user_detail/?id=${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

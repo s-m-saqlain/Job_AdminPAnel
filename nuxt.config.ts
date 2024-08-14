@@ -4,11 +4,11 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      baseURL: 'https://kuber123.pythonanywhere.com/'
+      baseURL: 'https://kuber123.pythonanywhere.com/',
     }
   },
 
-  plugins: ['~/plugins/axios.js'],
+  // plugins: ['~/plugins/auth.ts'],
   css: ['~/assets/css/main.css'],
 
   postcss: {
