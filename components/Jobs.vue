@@ -12,6 +12,203 @@
         </button>
         <Popup :isVisible="isPopupVisible" @hide="hidePopup" />
       </div>
+      <div
+        class="lg:flex justify-between items-center gap-6 border border-gray-300 rounded-md sm:px-12 px-1 mt-6"
+      >
+        <div class="my-4">
+          <div
+            class="flex justify-between items-center lg:border lg:border-t border-t-white lg:border-l border-l-white lg:border-b lg:border-b-white border-b border-b-gray-400 lg:border-r border-r-black py-1"
+          >
+            <svg
+              class="w-12 h-6 text-gray-500 dark:text-gray-400"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 20 20"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+              />
+            </svg>
+
+            <input
+              type="text"
+              id="name"
+              class="w-full sm:pl-5 pl-1 pr-10 py-2 focus:outline-none focus:ring-2 focus:ring-white lg:border-none"
+              placeholder="Job Title"
+              v-model="inputTitleValue"
+              @input="filterJobs"
+            />
+            <div class="cursor-pointer mx-6" @click="clearTitleInput">
+              <svg
+                class="h-5 w-5 text-black border border-black rounded-full"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="my-4">
+          <div
+            class="flex justify-between items-center lg:border lg:border-t border-t-white lg:border-l border-l-white lg:border-b lg:border-b-white border-b border-b-gray-400 lg:border-r border-r-black py-1"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              class="h-8 w-12 text-gray-500"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 11c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm0 10.828l-3.428-3.434C6.254 16.92 5 14.652 5 12c0-3.86 3.141-7 7-7s7 3.14 7 7c0 2.652-1.254 4.92-3.572 6.394L12 21.828z"
+              />
+            </svg>
+
+            <input
+              type="text"
+              id="name"
+              class="w-full sm:pl-5 pl-1 pr-10 py-2 focus:outline-none focus:ring-2 focus:ring-white"
+              placeholder="City"
+              v-model="inputCityValue"
+            />
+
+            <div class="cursor-pointer mx-6" @click="clearCityInput">
+              <svg
+                class="h-5 w-5 text-black border border-black rounded-full"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="my-4">
+          <div
+            class="flex justify-between items-center lg:border lg:border-t border-t-white lg:border-l border-l-white lg:border-b lg:border-b-white border-b border-b-gray-400 lg:border-r border-r-black py-1"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              class="h-8 w-12 text-gray-500"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 7a4 4 0 11-8 0 4 4 0 018 0zM21 21l-6-6m2-2a3 3 0 00-4-4L5 15v3h3l7-7a3 3 0 004-4z"
+              />
+            </svg>
+
+            <input
+              type="text"
+              id="name"
+              class="w-full sm:pl-5 pl-1 pr-10 py-2 focus:outline-none focus:ring-2 focus:ring-white"
+              placeholder="Keyword"
+              v-model="inputKeywordValue"
+            />
+
+            <div class="cursor-pointer mx-6" @click="clearKeywordInput">
+              <svg
+                class="h-5 w-5 text-black border border-black rounded-full"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="my-4">
+          <div
+            class="flex justify-between items-center lg:border lg:border-t border-t-white lg:border-l border-l-white lg:border-b lg:border-b-white border-b border-b-gray-400 lg:border-r border-r-black py-1"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              class="h-8 w-12 text-gray-500"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 21v-4a2 2 0 012-2h2a2 2 0 012 2v4h4v-4a2 2 0 012-2h2a2 2 0 012 2v4h1.5a1.5 1.5 0 001.5-1.5v-16A1.5 1.5 0 0019.5 3h-15A1.5 1.5 0 003 4.5V21h.5zM9 3v4M9 10v4M15 3v4M15 10v4M9 17v4M15 17v4"
+              />
+            </svg>
+
+            <input
+              type="text"
+              id="name"
+              class="w-full sm:pl-5 pl-1 pr-10 py-2 focus:outline-none focus:ring-2 focus:ring-white"
+              placeholder="Company Name"
+              v-model="inputCompanyValue"
+            />
+
+            <div class="cursor-pointer mx-6" @click="clearCompanyInput">
+              <svg
+                class="h-5 w-5 text-black border border-black rounded-full"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <button class="text-white font-bold bg-blue-500 cursor-pointer rounded-md w-44 h-12">
+          Discover
+        </button>
+      </div>
+       <div v-for="job in filteredJobs" :key="job.id">
+      <p>{{ job.title }}</p>
+      <!-- <p>{{ job.company_name }}</p>
+      <p>{{ job.company_location }}</p> -->
+      <!-- Add other job details as needed -->
+    </div>
       <div class="lg:grid lgrid-cols-1 md:grid-cols-2 gap-4">
         <div
           v-for="profile in profiles.results"
@@ -143,9 +340,64 @@ const isPopupVisible = ref<boolean>(false);
 const updateisPopupVisible = ref<boolean>(false);
 const updateselectedProfileId = ref<string | null>(null);
 
-import { useRuntimeConfig } from '#app'
-const config = useRuntimeConfig()
-const baseURL = config.public.baseURL
+import { useRuntimeConfig } from "#app";
+const config = useRuntimeConfig();
+const baseURL = config.public.baseURL;
+
+const inputTitleValue = ref<string>('') // Declare the input value as a string
+const filteredJobs = ref<Array<{ id: string, title: string }>>([]) // Declare filteredJobs with proper type
+
+const filterJobs = async () => {
+  try {
+    const response = await fetch(
+      `${baseURL}jobsScrap/getSuggestions/?query=${inputTitleValue.value}`
+    )
+    const data = await response.json()
+    console.log('API Response:', data)
+
+    // Ensure data.jobs_suggestions is an array and transform it
+    if (Array.isArray(data.jobs_suggestions)) {
+      filteredJobs.value = data.jobs_suggestions.map((job: [string, string]) => ({
+        id: job[0],
+        title: job[1]
+      }))
+    } else {
+      console.error('Expected jobs_suggestions to be an array but got:', data.jobs_suggestions)
+      filteredJobs.value = []
+    }
+
+    console.log('Filtered Jobs:', filteredJobs.value)
+  } catch (error) {
+    console.error('Error fetching jobs:', error)
+  }
+}
+
+const clearTitleInput = () => {
+  inputTitleValue.value = ''
+  filteredJobs.value = [] // Clear the filtered jobs
+}
+
+// const clearTitleInput = () => {
+//   inputTitleValue.value = "";
+// };
+
+const inputCityValue = ref("");
+
+const clearCityInput = () => {
+  inputCityValue.value = "";
+};
+
+const inputKeywordValue = ref("");
+
+const clearKeywordInput = () => {
+  inputKeywordValue.value = "";
+};
+
+const inputCompanyValue = ref("");
+
+const clearCompanyInput = () => {
+  inputCompanyValue.value = "";
+};
 
 const fetchProfiles = async (
   url: string = `${baseURL}adminapp/jobs/get_all_jobs`
@@ -183,17 +435,14 @@ const handleClick = async (profile: Profile): Promise<void> => {
       throw new Error("No token found in local storage");
     }
 
-    const response = await axios.delete(
-      `${baseURL}adminapp/jobs/delete_job/`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        data: {
-          id: profile.id,
-        },
-      }
-    );
+    const response = await axios.delete(`${baseURL}adminapp/jobs/delete_job/`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      data: {
+        id: profile.id,
+      },
+    });
 
     console.log("Delete successful", response.data);
     await fetchProfiles();

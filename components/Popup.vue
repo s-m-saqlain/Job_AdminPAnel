@@ -436,9 +436,9 @@ const form = ref<Form>({
 
 const errors = ref<Errors>({});
 
-import { useRuntimeConfig } from '#app'
-const config = useRuntimeConfig()
-const baseURL = config.public.baseURL
+import { useRuntimeConfig } from "#app";
+const config = useRuntimeConfig();
+const baseURL = config.public.baseURL;
 
 const validateForm = () => {
   errors.value = {};

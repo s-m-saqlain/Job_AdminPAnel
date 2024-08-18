@@ -232,9 +232,9 @@ const loading = ref<boolean>(true);
 const error = ref<string | null>(null);
 const profile = ref<any>(null);
 
-import { useRuntimeConfig } from '#app'
-const config = useRuntimeConfig()
-const baseURL = config.public.baseURL
+import { useRuntimeConfig } from "#app";
+const config = useRuntimeConfig();
+const baseURL = config.public.baseURL;
 
 const profileImageUrl = computed(() => {
   return profile.value && profile.value.data.profile
@@ -251,14 +251,11 @@ onMounted(async () => {
   }
 
   try {
-    const response = await axios.get(
-      `${baseURL}adminapp/adminapi/profile`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await axios.get(`${baseURL}adminapp/adminapi/profile`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     console.log(response);
     profile.value = response.data;
     loading.value = false;
