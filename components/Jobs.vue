@@ -60,8 +60,12 @@
               </svg>
             </div>
           </div>
-          <div v-for="job in filteredJobs" :key="job.id">
-            <p>{{ job.title }}</p>
+          <div
+            v-for="job in filteredJobs"
+            :key="job.id"
+            @click="selectJob(job.title)"
+          >
+            <p class="cursor-pointer">{{ job.title }}</p>
             <!-- <p>{{ job.company_name }}</p>
       <p>{{ job.company_location }}</p> -->
             <!-- Add other job details as needed -->
@@ -444,6 +448,10 @@ const filterJobs = async () => {
   }
 };
 
+const selectJob = (jobTitle: string) => {
+  inputTitleValue.value = jobTitle;
+};
+
 const clearTitleInput = () => {
   inputTitleValue.value = "";
   filterJobs(); // Clear the filtered jobs
@@ -464,12 +472,14 @@ const inputKeywordValue = ref<string>("");
 
 const clearKeywordInput = () => {
   inputKeywordValue.value = "";
+  filterJobs();
 };
 
 const inputCompanyValue = ref<string>("");
 
 const clearCompanyInput = () => {
   inputCompanyValue.value = "";
+  filterJobs();
 };
 
 const fetchProfiles = async (
