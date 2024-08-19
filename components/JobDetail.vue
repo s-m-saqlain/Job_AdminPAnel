@@ -197,9 +197,9 @@ interface ProfileResponse {
 const formattedContent = ref<string>("");
 const htmlContent = ref<string>("");
 
-import { useRuntimeConfig } from '#app'
-const config = useRuntimeConfig()
-const baseURL = config.public.baseURL
+import { useRuntimeConfig } from "#app";
+const config = useRuntimeConfig();
+const baseURL = config.public.baseURL;
 
 const props = defineProps<{
   profileId: string;

@@ -60,6 +60,12 @@
               </svg>
             </div>
           </div>
+          <div v-for="job in filteredJobs" :key="job.id">
+            <p>{{ job.title }}</p>
+            <!-- <p>{{ job.company_name }}</p>
+      <p>{{ job.company_location }}</p> -->
+            <!-- Add other job details as needed -->
+          </div>
         </div>
 
         <div class="my-4">
@@ -87,6 +93,7 @@
               class="w-full sm:pl-5 pl-1 pr-10 py-2 focus:outline-none focus:ring-2 focus:ring-white"
               placeholder="City"
               v-model="inputCityValue"
+              @input="filterJobs"
             />
 
             <div class="cursor-pointer mx-6" @click="clearCityInput">
@@ -106,8 +113,15 @@
               </svg>
             </div>
           </div>
+          <div v-for="city in filteredCities" :key="city.id">
+            <p>{{ city.name }}</p>
+            <!-- <p>{{ job.company_name }}</p>
+      <p>{{ job.company_location }}</p> -->
+            <!-- Add other job details as needed -->
+          </div>
         </div>
 
+        <!-- Keyword Input -->
         <div class="my-4">
           <div
             class="flex justify-between items-center lg:border lg:border-t border-t-white lg:border-l border-l-white lg:border-b lg:border-b-white border-b border-b-gray-400 lg:border-r border-r-black py-1"
@@ -126,15 +140,14 @@
                 d="M15 7a4 4 0 11-8 0 4 4 0 018 0zM21 21l-6-6m2-2a3 3 0 00-4-4L5 15v3h3l7-7a3 3 0 004-4z"
               />
             </svg>
-
             <input
               type="text"
-              id="name"
+              id="keyword"
               class="w-full sm:pl-5 pl-1 pr-10 py-2 focus:outline-none focus:ring-2 focus:ring-white"
               placeholder="Keyword"
               v-model="inputKeywordValue"
+              @input="filterJobs"
             />
-
             <div class="cursor-pointer mx-6" @click="clearKeywordInput">
               <svg
                 class="h-5 w-5 text-black border border-black rounded-full"
@@ -154,6 +167,7 @@
           </div>
         </div>
 
+        <!-- Company Name Input -->
         <div class="my-4">
           <div
             class="flex justify-between items-center lg:border lg:border-t border-t-white lg:border-l border-l-white lg:border-b lg:border-b-white border-b border-b-gray-400 lg:border-r border-r-black py-1"
@@ -172,15 +186,14 @@
                 d="M3 21v-4a2 2 0 012-2h2a2 2 0 012 2v4h4v-4a2 2 0 012-2h2a2 2 0 012 2v4h1.5a1.5 1.5 0 001.5-1.5v-16A1.5 1.5 0 0019.5 3h-15A1.5 1.5 0 003 4.5V21h.5zM9 3v4M9 10v4M15 3v4M15 10v4M9 17v4M15 17v4"
               />
             </svg>
-
             <input
               type="text"
-              id="name"
+              id="company_name"
               class="w-full sm:pl-5 pl-1 pr-10 py-2 focus:outline-none focus:ring-2 focus:ring-white"
               placeholder="Company Name"
               v-model="inputCompanyValue"
+              @input="filterJobs"
             />
-
             <div class="cursor-pointer mx-6" @click="clearCompanyInput">
               <svg
                 class="h-5 w-5 text-black border border-black rounded-full"
@@ -198,17 +211,20 @@
               </svg>
             </div>
           </div>
+          <div v-for="company in filteredCompany" :key="company.id">
+            <p>{{ company.title }}</p>
+            <!-- <p>{{ job.company_name }}</p>
+      <p>{{ job.company_location }}</p> -->
+            <!-- Add other job details as needed -->
+          </div>
         </div>
-        <button class="text-white font-bold bg-blue-500 cursor-pointer rounded-md w-44 h-12">
+        <button
+          class="text-white font-bold bg-blue-500 cursor-pointer rounded-md w-44 h-12"
+        >
           Discover
         </button>
       </div>
-       <div v-for="job in filteredJobs" :key="job.id">
-      <p>{{ job.title }}</p>
-      <!-- <p>{{ job.company_name }}</p>
-      <p>{{ job.company_location }}</p> -->
-      <!-- Add other job details as needed -->
-    </div>
+
       <div class="lg:grid lgrid-cols-1 md:grid-cols-2 gap-4">
         <div
           v-for="profile in profiles.results"
@@ -344,56 +360,113 @@ import { useRuntimeConfig } from "#app";
 const config = useRuntimeConfig();
 const baseURL = config.public.baseURL;
 
-const inputTitleValue = ref<string>('') // Declare the input value as a string
-const filteredJobs = ref<Array<{ id: string, title: string }>>([]) // Declare filteredJobs with proper type
+const inputTitleValue = ref<string>(""); // Declare the input value as a string
+const filteredJobs = ref<Array<{ id: string; title: string }>>([]); // Declare filteredJobs with proper type
+const filteredCities = ref<Array<{ id: string; name: string }>>([]);
+const filteredCompany = ref<Array<{ title: string; id: string }>>([]);
 
 const filterJobs = async () => {
   try {
-    const response = await fetch(
-      `${baseURL}jobsScrap/getSuggestions/?query=${inputTitleValue.value}`
-    )
-    const data = await response.json()
-    console.log('API Response:', data)
+    let url = `${baseURL}jobsScrap/getSuggestions/?`;
 
-    // Ensure data.jobs_suggestions is an array and transform it
-    if (Array.isArray(data.jobs_suggestions)) {
-      filteredJobs.value = data.jobs_suggestions.map((job: [string, string]) => ({
-        id: job[0],
-        title: job[1]
-      }))
-    } else {
-      console.error('Expected jobs_suggestions to be an array but got:', data.jobs_suggestions)
-      filteredJobs.value = []
+    if (inputTitleValue.value) {
+      url += `query=${inputTitleValue.value}`;
     }
 
-    console.log('Filtered Jobs:', filteredJobs.value)
+    if (inputCityValue.value) {
+      url += `&city=${inputCityValue.value}`;
+    }
+
+    if (inputKeywordValue.value) {
+      url += `keyword=${inputKeywordValue.value}`;
+    }
+
+    if (inputCompanyValue.value) {
+      url += `&company_name=${inputCompanyValue.value}`;
+    }
+
+    const response = await fetch(url);
+    const data = await response.json();
+    console.log("API Response:", data);
+
+    // Process job suggestions
+    if (Array.isArray(data.jobs_suggestions)) {
+      filteredJobs.value = data.jobs_suggestions.map(
+        (job: [string, string]) => ({
+          id: job[0],
+          title: job[1],
+        })
+      );
+    } else {
+      console.error(
+        "Expected jobs_suggestions to be an array but got:",
+        data.jobs_suggestions
+      );
+      filteredJobs.value = [];
+    }
+
+    // Process city suggestions
+    if (data.city_suggestions) {
+      filteredCities.value = data.city_suggestions.map(
+        (city: string, index: number) => ({
+          id: index, // Using the index as the ID
+          name: city, // The city name is the string itself
+        })
+      );
+    } else {
+      console.error(
+        "Expected city_suggestions to be an array but got:",
+        data.city_suggestions
+      );
+      filteredCities.value = [];
+    }
+
+    if (Array.isArray(data.company_suggestions)) {
+      filteredCompany.value = data.company_suggestions.map(
+        (company_name: [string, string]) => ({
+          title: company_name[0],
+          id: company_name[1],
+        })
+      );
+    } else {
+      console.error(
+        "Expected jobs_suggestions to be an array but got:",
+        data.company_suggestions
+      );
+      filteredCompany.value = [];
+    }
+
+    console.log("Filtered Jobs:", filteredJobs.value);
+    console.log("Filtered Cities:", filteredCities.value);
+    console.log("Filtered Compan:", filteredCompany.value);
   } catch (error) {
-    console.error('Error fetching jobs:', error)
+    console.error("Error fetching jobs and cities:", error);
   }
-}
+};
 
 const clearTitleInput = () => {
-  inputTitleValue.value = ''
-  filteredJobs.value = [] // Clear the filtered jobs
-}
+  inputTitleValue.value = "";
+  filterJobs(); // Clear the filtered jobs
+};
 
 // const clearTitleInput = () => {
 //   inputTitleValue.value = "";
 // };
 
-const inputCityValue = ref("");
+const inputCityValue = ref<string>("");
 
 const clearCityInput = () => {
   inputCityValue.value = "";
+  filterJobs();
 };
 
-const inputKeywordValue = ref("");
+const inputKeywordValue = ref<string>("");
 
 const clearKeywordInput = () => {
   inputKeywordValue.value = "";
 };
 
-const inputCompanyValue = ref("");
+const inputCompanyValue = ref<string>("");
 
 const clearCompanyInput = () => {
   inputCompanyValue.value = "";
