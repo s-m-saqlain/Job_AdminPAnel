@@ -24,9 +24,9 @@ const profile = ref(null);
 const error = ref(null);
 const loading = ref(false);
 
-import { useRuntimeConfig } from '#app'
-const config = useRuntimeConfig()
-const baseURL = config.public.baseURL
+import { useRuntimeConfig } from "#app";
+const config = useRuntimeConfig();
+const baseURL = config.public.baseURL;
 
 const fetchProfile = async () => {
   loading.value = true;

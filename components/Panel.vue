@@ -35,7 +35,7 @@
     >
       <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
         <ul class="space-y-2 font-medium">
-          <div class="flex justify-between items-center">
+          <div class="flex justify-between items-center mb-12">
             <img src="~/assets/images/logo.png" class="w-[12rem]" />
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -53,11 +53,13 @@
               />
             </svg>
           </div>
-          <div class="flex justify-between items-center pt-12">
+          <div
+            class="flex justify-between items-center hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+          >
             <li>
               <a
                 href="#"
-                class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white group"
                 @click="loadDashboard"
               >
                 <svg

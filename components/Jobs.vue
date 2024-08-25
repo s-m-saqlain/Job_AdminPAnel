@@ -13,7 +13,7 @@
         <Popup :isVisible="isPopupVisible" @hide="hidePopup" />
       </div>
       <div
-        class="lg:flex justify-between items-center gap-6 border border-gray-300 rounded-md sm:px-12 px-1 mt-6"
+        class="lg:flex justify-between gap-6 border border-gray-300 rounded-md sm:px-12 px-1 mt-6"
       >
         <div class="my-4">
           <div
@@ -42,6 +42,7 @@
               placeholder="Job Title"
               v-model="inputTitleValue"
               @input="filterJobs"
+              @focus="showSuggestions = true"
             />
             <div class="cursor-pointer mx-6" @click="clearTitleInput">
               <svg
@@ -60,15 +61,17 @@
               </svg>
             </div>
           </div>
-          <div
-            v-for="job in filteredJobs"
-            :key="job.id"
-            @click="selectJob(job.title)"
-          >
-            <p class="cursor-pointer">{{ job.title }}</p>
-            <!-- <p>{{ job.company_name }}</p>
+          <div v-if="showSuggestions" id="suggestions">
+            <div
+              v-for="job in filteredJobs"
+              :key="job.id"
+              @click="selectJob(job.title)"
+            >
+              <p class="cursor-pointer">{{ job.title }}</p>
+              <!-- <p>{{ job.company_name }}</p>
       <p>{{ job.company_location }}</p> -->
-            <!-- Add other job details as needed -->
+              <!-- Add other job details as needed -->
+            </div>
           </div>
         </div>
 
@@ -97,7 +100,8 @@
               class="w-full sm:pl-5 pl-1 pr-10 py-2 focus:outline-none focus:ring-2 focus:ring-white"
               placeholder="City"
               v-model="inputCityValue"
-              @input="filterJobs"
+              @input="filterJobscity"
+              @focus="showSuggestionscity = true"
             />
 
             <div class="cursor-pointer mx-6" @click="clearCityInput">
@@ -117,16 +121,22 @@
               </svg>
             </div>
           </div>
-          <div v-for="city in filteredCities" :key="city.id">
-            <p>{{ city.name }}</p>
-            <!-- <p>{{ job.company_name }}</p>
+          <div v-if="showSuggestionscity" id="city">
+            <div
+              v-for="city in filteredCities"
+              :key="city.id"
+              @click="selectJobcity(city.name)"
+            >
+              <p class="cursor-pointer">{{ city.name }}</p>
+              <!-- <p>{{ job.company_name }}</p>
       <p>{{ job.company_location }}</p> -->
-            <!-- Add other job details as needed -->
+              <!-- Add other job details as needed -->
+            </div>
           </div>
         </div>
 
         <!-- Keyword Input -->
-        <div class="my-4">
+        <!-- <div class="my-4">
           <div
             class="flex justify-between items-center lg:border lg:border-t border-t-white lg:border-l border-l-white lg:border-b lg:border-b-white border-b border-b-gray-400 lg:border-r border-r-black py-1"
           >
@@ -151,6 +161,7 @@
               placeholder="Keyword"
               v-model="inputKeywordValue"
               @input="filterJobs"
+              @focus="showSuggestionscity = true"
             />
             <div class="cursor-pointer mx-6" @click="clearKeywordInput">
               <svg
@@ -169,7 +180,7 @@
               </svg>
             </div>
           </div>
-        </div>
+        </div> -->
 
         <!-- Company Name Input -->
         <div class="my-4">
@@ -196,7 +207,8 @@
               class="w-full sm:pl-5 pl-1 pr-10 py-2 focus:outline-none focus:ring-2 focus:ring-white"
               placeholder="Company Name"
               v-model="inputCompanyValue"
-              @input="filterJobs"
+              @input="filterJobscompany"
+              @focus="showSuggestionscompany = true"
             />
             <div class="cursor-pointer mx-6" @click="clearCompanyInput">
               <svg
@@ -215,15 +227,22 @@
               </svg>
             </div>
           </div>
-          <div v-for="company in filteredCompany" :key="company.id">
-            <p>{{ company.title }}</p>
-            <!-- <p>{{ job.company_name }}</p>
+          <div v-if="showSuggestionscompany" id="company">
+            <div
+              v-for="company in filteredCompany"
+              :key="company.id"
+              @click="selectJobcompany(company.title)"
+            >
+              <p class="cursor-pointer">{{ company.title }}</p>
+              <!-- <p>{{ job.company_name }}</p>
       <p>{{ job.company_location }}</p> -->
-            <!-- Add other job details as needed -->
+              <!-- Add other job details as needed -->
+            </div>
           </div>
         </div>
         <button
-          class="text-white font-bold bg-blue-500 cursor-pointer rounded-md w-44 h-12"
+          @click="discoverJobs"
+          class="text-white font-bold bg-blue-500 cursor-pointer rounded-md w-44 h-12 mt-4"
         >
           Discover
         </button>
@@ -336,11 +355,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref, onMounted, onUnmounted, nextTick } from "vue";
 import axios from "axios";
 import JobDetail from "./JobDetail.vue";
 import Popup from "./Popup.vue";
 import UpdatePopup from "./Update_Popup.vue";
+
+import vClickOutside from "v-click-outside";
+
+const clickOutsideDirective = vClickOutside.directive;
 
 // Define interfaces for the response data structure
 interface Profile {
@@ -365,6 +388,7 @@ const config = useRuntimeConfig();
 const baseURL = config.public.baseURL;
 
 const inputTitleValue = ref<string>(""); // Declare the input value as a string
+
 const filteredJobs = ref<Array<{ id: string; title: string }>>([]); // Declare filteredJobs with proper type
 const filteredCities = ref<Array<{ id: string; name: string }>>([]);
 const filteredCompany = ref<Array<{ title: string; id: string }>>([]);
@@ -375,18 +399,6 @@ const filterJobs = async () => {
 
     if (inputTitleValue.value) {
       url += `query=${inputTitleValue.value}`;
-    }
-
-    if (inputCityValue.value) {
-      url += `&city=${inputCityValue.value}`;
-    }
-
-    if (inputKeywordValue.value) {
-      url += `keyword=${inputKeywordValue.value}`;
-    }
-
-    if (inputCompanyValue.value) {
-      url += `&company_name=${inputCompanyValue.value}`;
     }
 
     const response = await fetch(url);
@@ -409,6 +421,27 @@ const filterJobs = async () => {
       filteredJobs.value = [];
     }
 
+    console.log("Filtered Jobs:", filteredJobs.value);
+
+    await nextTick();
+    showSuggestions.value = true;
+  } catch (error) {
+    console.error("Error fetching jobs and cities:", error);
+  }
+};
+
+const filterJobscity = async () => {
+  try {
+    let url = `${baseURL}jobsScrap/getSuggestions/?`;
+
+    if (inputCityValue.value) {
+      url += `&city=${inputCityValue.value}`;
+    }
+
+    const response = await fetch(url);
+    const data = await response.json();
+    console.log("API Response:", data);
+
     // Process city suggestions
     if (data.city_suggestions) {
       filteredCities.value = data.city_suggestions.map(
@@ -425,6 +458,27 @@ const filterJobs = async () => {
       filteredCities.value = [];
     }
 
+    console.log("Filtered Cities:", filteredCities.value);
+
+    await nextTick();
+    showSuggestionscity.value = true;
+  } catch (error) {
+    console.error("Error fetching jobs and cities:", error);
+  }
+};
+
+const filterJobscompany = async () => {
+  try {
+    let url = `${baseURL}jobsScrap/getSuggestions/?`;
+
+    if (inputCompanyValue.value) {
+      url += `&company_name=${inputCompanyValue.value}`;
+    }
+
+    const response = await fetch(url);
+    const data = await response.json();
+    console.log("API Response:", data);
+
     if (Array.isArray(data.company_suggestions)) {
       filteredCompany.value = data.company_suggestions.map(
         (company_name: [string, string]) => ({
@@ -440,17 +494,85 @@ const filterJobs = async () => {
       filteredCompany.value = [];
     }
 
-    console.log("Filtered Jobs:", filteredJobs.value);
-    console.log("Filtered Cities:", filteredCities.value);
     console.log("Filtered Compan:", filteredCompany.value);
+
+    await nextTick();
+    showSuggestionscompany.value = true;
   } catch (error) {
     console.error("Error fetching jobs and cities:", error);
   }
 };
 
+const showSuggestions = ref(false);
+const showSuggestionscity = ref(false);
+const showSuggestionscompany = ref(false);
+
 const selectJob = (jobTitle: string) => {
   inputTitleValue.value = jobTitle;
+  showSuggestions.value = false; // Hide the suggestions after selection
 };
+const selectJobcity = (jobTitle: string) => {
+  inputCityValue.value = jobTitle;
+  showSuggestionscity.value = false; // Hide the suggestions after selection
+};
+const selectJobcompany = (jobTitle: string) => {
+  inputCompanyValue.value = jobTitle;
+  showSuggestionscompany.value = false; // Hide the suggestions after selection
+};
+
+const handleClickOutside = (event: MouseEvent) => {
+  const suggestionsElement = document.getElementById("suggestions");
+  if (
+    suggestionsElement &&
+    !suggestionsElement.contains(event.target as Node)
+  ) {
+    showSuggestions.value = false;
+  }
+};
+
+const handleClickOutsidecity = (event: MouseEvent) => {
+  const suggestionsElement = document.getElementById("city");
+  if (
+    suggestionsElement &&
+    !suggestionsElement.contains(event.target as Node)
+  ) {
+    showSuggestionscity.value = false;
+  }
+};
+
+const handleClickOutsidecompany = (event: MouseEvent) => {
+  const suggestionsElement = document.getElementById("company");
+  if (
+    suggestionsElement &&
+    !suggestionsElement.contains(event.target as Node)
+  ) {
+    showSuggestionscompany.value = false;
+  }
+};
+
+onMounted(() => {
+  document.addEventListener("click", handleClickOutside);
+});
+
+onUnmounted(() => {
+  document.removeEventListener("click", handleClickOutside);
+});
+
+onMounted(() => {
+  document.addEventListener("click", handleClickOutsidecity);
+});
+
+onUnmounted(() => {
+  document.removeEventListener("click", handleClickOutsidecity);
+});
+
+onMounted(() => {
+  document.addEventListener("click", handleClickOutsidecompany);
+});
+
+onUnmounted(() => {
+  document.removeEventListener("click", handleClickOutsidecompany);
+});
 
 const clearTitleInput = () => {
   inputTitleValue.value = "";
@@ -481,6 +603,51 @@ const clearCompanyInput = () => {
   inputCompanyValue.value = "";
   filterJobs();
 };
+
+const constructApiUrl = () => {
+  const baseUrl = 'https://kuber123.pythonanywhere.com/jobsScrap/get_jobs/';
+  const params = new URLSearchParams();
+
+  // Check and append the job title if provided
+  if (inputTitleValue.value) {
+    params.append('job_title', inputTitleValue.value);
+  }
+
+  // Check and append the city if provided
+  if (inputCityValue.value) {
+    params.append('city', inputCityValue.value);
+  }
+
+  // Check and append the company name if provided (commented out)
+  // if (inputCompanyValue.value) {
+  //   params.append('company_name', inputCompanyValue.value);
+  // }
+
+  // Return the complete URL with the parameters
+  return `${baseUrl}?${params.toString()}`;
+};
+
+// Function to handle "Discover" button click
+const discoverJobs = async () => {
+  try {
+    const url = constructApiUrl();
+    console.log("Discover API URL:", url);
+
+    // Fetch data from the API
+    const response = await fetch(url);
+
+    // Parse the JSON response
+    const data = await response.json();
+    console.log("Discover API Response:", data.results);
+
+    // Handle the response data as needed
+    // Example: You could update a reactive property with the data
+  } catch (error) {
+    // Log any errors that occur during the fetch
+    console.error("Error fetching jobs on discover:", error);
+  }
+};
+
 
 const fetchProfiles = async (
   url: string = `${baseURL}adminapp/jobs/get_all_jobs`
@@ -558,8 +725,4 @@ const showProfiles = (): void => {
 onMounted(fetchProfiles);
 </script>
 
-<style scoped>
-.container {
-  padding: 2rem;
-}
-</style>
+<style scoped></style>
