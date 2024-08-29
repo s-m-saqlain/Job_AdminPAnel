@@ -250,7 +250,9 @@
 
       <div class="lg:grid lgrid-cols-1 md:grid-cols-2 gap-4">
         <div
-          v-for="profile in profiles.results"
+          v-for="profile in discoveredProfiles.length
+            ? discoveredProfiles
+            : profiles.results"
           :key="profile.id"
           class="bg-white p-4 rounded-lg"
         >
@@ -376,6 +378,7 @@ interface ProfilesResponse {
 }
 
 const profiles = ref<Profile[]>([]);
+const discoveredProfiles = ref<Profile[]>([]);
 const loading = ref<boolean>(false);
 const error = ref<string | null>(null);
 const currentProfile = ref<string | null>(null);
@@ -605,17 +608,15 @@ const clearCompanyInput = () => {
 };
 
 const constructApiUrl = () => {
-  const baseUrl = 'https://kuber123.pythonanywhere.com/jobsScrap/get_jobs/';
+  const baseUrl = "https://kuber123.pythonanywhere.com/jobsScrap/get_jobs/";
   const params = new URLSearchParams();
 
-  // Check and append the job title if provided
   if (inputTitleValue.value) {
-    params.append('job_title', inputTitleValue.value);
+    params.append("job_title", inputTitleValue.value);
   }
 
-  // Check and append the city if provided
   if (inputCityValue.value) {
-    params.append('city', inputCityValue.value);
+    params.append("city", inputCityValue.value);
   }
 
   // Check and append the company name if provided (commented out)
@@ -623,31 +624,25 @@ const constructApiUrl = () => {
   //   params.append('company_name', inputCompanyValue.value);
   // }
 
-  // Return the complete URL with the parameters
   return `${baseUrl}?${params.toString()}`;
 };
 
-// Function to handle "Discover" button click
 const discoverJobs = async () => {
   try {
     const url = constructApiUrl();
     console.log("Discover API URL:", url);
 
-    // Fetch data from the API
     const response = await fetch(url);
 
-    // Parse the JSON response
     const data = await response.json();
     console.log("Discover API Response:", data.results);
 
-    // Handle the response data as needed
-    // Example: You could update a reactive property with the data
+    discoveredProfiles.value = data.results; // Set the discovered profiles
+    profiles.value = data;
   } catch (error) {
-    // Log any errors that occur during the fetch
     console.error("Error fetching jobs on discover:", error);
   }
 };
-
 
 const fetchProfiles = async (
   url: string = `${baseURL}adminapp/jobs/get_all_jobs`
@@ -669,6 +664,9 @@ const fetchProfiles = async (
       },
     });
     profiles.value = response.data;
+    if (discoveredProfiles.value.length) {
+      discoveredProfiles.value = response.data.results;
+    }
     console.log(profiles.value);
   } catch (err) {
     error.value = "Error fetching profiles data.";
