@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-100 h-screen">
+  <div class="bg-[#F1F5F9] h-screen">
     <!-- <div v-if="loading" class="flex justify-center items-center h-full">
       <p>Loading...</p>
     </div> -->

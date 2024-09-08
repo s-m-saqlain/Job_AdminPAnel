@@ -26,7 +26,7 @@
     </div>
     <div v-if="error" class="text-red-500 text-center">{{ error }}</div>
     <div
-      v-if="dashboardData"
+      v-if="!currentProfile && !currentProfile1 && dashboardData"
       class="grid grid-cols-1 lg:grid-cols-2 justify-center lg:ml-[3rem] sm:ml-0 ml-6 cursor-pointer"
     >
       <div
@@ -42,7 +42,8 @@
         <div class="text-center mt-4">
           <h3
             class="sm:w-[350px] mx-auto absolute inset-0 top-[2rem] font-semibold text-[18px] text-white sm:px-0 px-10"
-          >
+            @click="showJobDetail(feedback.job_id)" 
+            >
             {{ feedback.job_title }}
           </h3>
           <p
@@ -58,6 +59,7 @@
           </p>
           <p
             class="absolute inset-0 sm:top-[150px] top-[230px] text-white font-medium sm:pt-2 pt-2 bg-pink-500 h-10"
+            @click="showProfileDetail(feedback.user_detail.id)" 
           >
             {{ feedback.feedback_text }}
           </p>
@@ -93,12 +95,27 @@
           </div>
         </div>
       </div> -->
+      <JobDetail
+      v-if="currentProfile"
+      :profileId="currentProfile"
+      @back="showProfiles"
+    />
+    <ProfileDetail
+      v-if="currentProfile1"
+      :profileId="currentProfile1"
+      @back="showProfiles1"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import axios from "axios";
 import { ref, onMounted } from "vue";
+const currentProfile = ref<string | null>(null);
+const currentProfile1 = ref<string | null>(null);
+
+import JobDetail from "./JobDetail.vue";
+import ProfileDetail from "./ProfileDetail.vue"
 
 interface Feedback {
   id: number;
@@ -120,7 +137,24 @@ const dashboardData = ref<FeedbackResponse | null>(null);
 const loading = ref<boolean>(true);
 const error = ref<string | null>(null);
 
+const showJobDetail = (profileId: string) => {
+  currentProfile.value = profileId;
+};
+
+const showProfileDetail = (profileId: string) => {
+  currentProfile1.value = profileId;
+};
+
+const showProfiles = () => {
+  currentProfile.value = null;
+};
+
+const showProfiles1 = () => {
+  currentProfile1.value = null;
+};
+
 import { useRuntimeConfig } from "#app";
+// import { ProfileDetail } from "#build/components";
 const config = useRuntimeConfig();
 const baseURL = config.public.baseURL;
 

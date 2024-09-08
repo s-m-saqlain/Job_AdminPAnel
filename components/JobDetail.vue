@@ -12,30 +12,29 @@
       </div>
     </div>
     <div class="container bg-gray-200 h-full mt-6">
-      <!-- <div v-if="loading" class="text-center">Loading...</div> -->
       <div v-if="loading" role="status" class="h-screen">
-      <div class="flex justify-center items-center">
-        <div class="pt-[12rem]">
-          <svg
-            aria-hidden="true"
-            class="w-20 h-20 text-blue-500 animate-spin dark:text-gray-600 fill-blue-600"
-            viewBox="0 0 100 101"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-              fill="currentColor"
-            />
-            <path
-              d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-              fill="currentFill"
-            />
-          </svg>
-          <span class="text-blue-500 text-2xl font-normal">Loading...</span>
+        <div class="flex justify-center items-center">
+          <div class="pt-[12rem]">
+            <svg
+              aria-hidden="true"
+              class="w-20 h-20 text-blue-500 animate-spin dark:text-gray-600 fill-blue-600"
+              viewBox="0 0 100 101"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                fill="currentColor"
+              />
+              <path
+                d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                fill="currentFill"
+              />
+            </svg>
+            <span class="text-blue-500 text-2xl font-normal">Loading...</span>
+          </div>
         </div>
       </div>
-    </div>
       <div v-if="error" class="text-red-500 text-center">{{ error }}</div>
       <div v-if="!currentProfile && profile" class="profile-detail">
         <div class="lg:flex justify-start items-center ml-2 pt-6">
@@ -61,18 +60,13 @@
         </div>
         <p class="ml-2 text-xl text-bold">Job Detail</p>
         <div class="my-1 border-t border-gray-500 w-full"></div>
-        <div class="lg:flex justify-between items-center">
-          <div class="lg:flex justify-start gap-3"></div>
-          <div></div>
-        </div>
-        <div>
-          <div class="mt-4" v-for="item in profile" :key="item.id">
+        <!-- <div> -->
+          <!-- <div class="mt-4" v-for="item in profile" :key="item.id">
             <div class="flex justify-between items-start">
               <div>
                 <p class="text-black font-semibold text-2xl ml-8">
                   {{ item.job_title }}
                 </p>
-                <!-- <button class="bg-green-500 text-white rounded-3xl font-thin py-2 px-4 mr-12">Views:0</button> -->
                 <div class="flex justify-strat item-center mt-6 ml-[4rem]">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -100,7 +94,6 @@
                 <p class="text-black font-thin ml-[5rem] text-2xl mt-4">
                   {{ item.industries }}
                 </p>
-                <!-- <p class="text-black">{{item.job_description}}</p> -->
               </div>
               <div>
                 <button
@@ -133,7 +126,43 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
+          <div class="mt-4" v-for="items in profile" :key="items.id">
+  <div class="flex justify-between items-start">
+    <div>
+      <p class="text-black font-semibold text-2xl ml-8">
+        {{ items.job_title }}
+      </p>
+    </div>
+    <div class="mx-14">
+      <div>
+        
+      {{items.industries}}
+   
+       <button
+            class="bg-blue-600 text-white py-2 w-[500px] rounded-2xl ml-[5rem] mt-3"
+           
+          >
+            {{items.view_count}}
+          </button>
+      </div>
+      <img
+        v-if="items.listing_platform === 'LinkedIn'"
+        src="~/assets/images/linkedinlogo.png"
+        alt="LinkedIn"
+        class="w-20 h-20 inline"
+      />
+      <img
+        v-else-if="items.listing_platform === 'Indeed'"
+        src="~/assets/images/indeed.jpeg"
+        alt="Indeed"
+        class="w-6 h-6 inline"
+      />
+      {{items.listing_platform}}
+    </div>
+  </div>
+</div>
+
           <button
             class="bg-blue-600 text-white py-2 w-[500px] rounded-2xl ml-[5rem] mt-3"
             @click="companyurl"
@@ -151,7 +180,7 @@
                   class="relative bg-[#2C3146] mt-[6rem] w-[300px] rounded-3xl py-4 h-[250px]"
                 >
                   <img
-                    :src="`https://kuber123.pythonanywhere.com${item.user.profile}`"
+                    :src="`${baseURL}${item.user.profile}`"
                     @click="showJobDetail(item.user.id)"
                     alt="Profile Picture"
                     class="cursor-pointer hover:shadow-red w-32 h-32 object-cover bg-white rounded-full absolute left-1/2 transform -translate-x-1/2 -top-16 mx-auto"
@@ -166,11 +195,6 @@
                   >
                     {{ item.user.email }}
                   </p>
-                  <!-- <p
-                    class="text-white bg-blue-500 text-center font-medium mt-3 w-[12rem] mx-auto py-1"
-                  >
-                    {{ item.feedback_text }}
-                  </p> -->
                   <p
                     class="absolute inset-0 top-[8rem] text-white font-medium text-[15px] text-center mt-6"
                   >
@@ -185,9 +209,7 @@
               </div>
             </div>
           </div>
-          <!-- <p class="text-black">{{ htmlContent }}</p> -->
-          <!-- <div v-if="formattedJobDescription" v-html="formattedJobDescription" /> -->
-        </div>
+        <!-- </div> -->
       </div>
     </div>
     <ProfileDetail
@@ -207,13 +229,11 @@ import { useRouter } from "vue-router";
 
 const router = useRouter();
 
-// Define interfaces for the response data structure
 interface ProfileData {
   id: string;
   job_description: string;
   links: string;
   company_url: string;
-  // Add other fields as necessary
 }
 
 interface ProfileResponse {
@@ -255,6 +275,8 @@ const companyurl = async () => {
   }
 };
 
+
+
 const fetchProfile = async (id: string) => {
   loading.value = true;
   error.value = null;
@@ -276,9 +298,7 @@ const fetchProfile = async (id: string) => {
       }
     );
     profile.value = response.data;
-    htmlContent.value = response.data.data.job_description; // Adjust according to your data structure
-    // formattedContent.value = DOMPurify.sanitize(htmlContent, { RETURN_DOM_FRAGMENT: true }).textContent.trim();
-    // console.log(formattedContent)
+    htmlContent.value = response.data.data.job_description;
   } catch (err) {
     error.value = "Error fetching profile data.";
     console.error(err);
@@ -301,19 +321,6 @@ onMounted(() => {
   }
 });
 
-// const handlePopState = () => {
-//   // Handle the back navigation
-//   console.log("User navigated back");
-// };
-
-// onMounted(() => {
-//   window.addEventListener("popstate", handlePopState);
-// });
-
-// onBeforeUnmount(() => {
-//   window.removeEventListener("popstate", handlePopState);
-// });
-
 onMounted(() => {
   window.addEventListener("popstate", handlePopState);
 });
@@ -322,7 +329,7 @@ const handlePopState = () => {
   if (currentProfile.value) {
     currentProfile.value = null;
   } else {
-    router.go(-1); // Navigate back to the previous page
+    router.go(-1);
   }
 };
 
@@ -340,13 +347,3 @@ watch(
   { immediate: true }
 );
 </script>
-
-<style scoped>
-/* .container {
-  padding: 2rem;
-}
-
-.profile-detail {
-  padding: 2rem;
-} */
-</style>

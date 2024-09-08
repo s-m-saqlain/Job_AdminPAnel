@@ -84,17 +84,19 @@
               </svg>
             </div>
           </div>
-          <div v-if="showSuggestions" id="suggestions">
+          <div class="relative">
+            <div v-if="showSuggestions" id="suggestions" :class="filteredJobs.length > 3 ? 'h-96 overflow-y-auto' : ''" class="absolute bg-white border border-gray-200 mt-1 w-full">
             <div
               v-for="job in filteredJobs"
               :key="job.id"
               @click="selectJob(job.title)"
             >
-              <p class="cursor-pointer">{{ job.title }}</p>
+              <p class="cursor-pointer px-12 py-4">{{ job.title }}</p>
               <!-- <p>{{ job.company_name }}</p>
       <p>{{ job.company_location }}</p> -->
               <!-- Add other job details as needed -->
             </div>
+          </div>
           </div>
         </div>
 
@@ -144,17 +146,19 @@
               </svg>
             </div>
           </div>
-          <div v-if="showSuggestionscity" id="city">
+          <div class="relative">
+            <div v-if="showSuggestionscity" id="city" :class="filteredCities.length > 3 ? 'h-96 overflow-y-auto' : ''" class="absolute bg-white border border-gray-200 mt-1 w-full">
             <div
               v-for="city in filteredCities"
               :key="city.id"
               @click="selectJobcity(city.name)"
             >
-              <p class="cursor-pointer">{{ city.name }}</p>
+              <p class="cursor-pointer py-4 px-12">{{ city.name }}</p>
               <!-- <p>{{ job.company_name }}</p>
       <p>{{ job.company_location }}</p> -->
               <!-- Add other job details as needed -->
             </div>
+          </div>
           </div>
         </div>
 
@@ -250,17 +254,19 @@
               </svg>
             </div>
           </div>
-          <div v-if="showSuggestionscompany" id="company">
+          <div class="relative">
+            <div v-if="showSuggestionscompany" id="company" :class="filteredCompany.length > 3 ? 'h-96 overflow-y-auto' : ''" class="absolute bg-white border border-gray-200 mt-1 w-full" >
             <div
               v-for="company in filteredCompany"
               :key="company.id"
               @click="selectJobcompany(company.title)"
             >
-              <p class="cursor-pointer">{{ company.title }}</p>
+              <p class="cursor-pointer px-12 py-4">{{ company.title }}</p>
               <!-- <p>{{ job.company_name }}</p>
       <p>{{ job.company_location }}</p> -->
               <!-- Add other job details as needed -->
             </div>
+          </div>
           </div>
         </div>
         <button
@@ -375,13 +381,13 @@
             </div>
           </div>
         </div>
-         <DeleteConfirmationPopup
-    v-if="isPopupVisible1"
-    :visible="isPopupVisible1"
-    :profile="selectedProfile"
-    @close="isPopupVisible1 = false"
-    @confirm="handleClick"
-  />
+        <DeleteConfirmationPopup
+          v-if="isPopupVisible1"
+          :visible="isPopupVisible1"
+          :profile="selectedProfile"
+          @close="isPopupVisible1 = false"
+          @confirm="handleClick"
+        />
       </div>
     </div>
     <JobDetail
@@ -436,7 +442,7 @@ import axios from "axios";
 import JobDetail from "./JobDetail.vue";
 import Popup from "./Popup.vue";
 import UpdatePopup from "./Update_Popup.vue";
-import DeleteConfirmationPopup from './DeleteConfirmationPopup.vue';
+import DeleteConfirmationPopup from "./DeleteConfirmationPopup.vue";
 
 const isPopupVisible1 = ref(false);
 const selectedProfile = ref<Profile | null>(null);
@@ -450,10 +456,8 @@ import vClickOutside from "v-click-outside";
 
 const clickOutsideDirective = vClickOutside.directive;
 
-// Define interfaces for the response data structure
 interface Profile {
   id: string;
-  // Define other fields based on your data structure
 }
 
 interface ProfilesResponse {
@@ -473,9 +477,9 @@ import { useRuntimeConfig } from "#app";
 const config = useRuntimeConfig();
 const baseURL = config.public.baseURL;
 
-const inputTitleValue = ref<string>(""); // Declare the input value as a string
+const inputTitleValue = ref<string>("");
 
-const filteredJobs = ref<Array<{ id: string; title: string }>>([]); // Declare filteredJobs with proper type
+const filteredJobs = ref<Array<{ id: string; title: string }>>([]);
 const filteredCities = ref<Array<{ id: string; name: string }>>([]);
 const filteredCompany = ref<Array<{ title: string; id: string }>>([]);
 
@@ -491,7 +495,6 @@ const filterJobs = async () => {
     const data = await response.json();
     console.log("API Response:", data);
 
-    // Process job suggestions
     if (Array.isArray(data.jobs_suggestions)) {
       filteredJobs.value = data.jobs_suggestions.map(
         (job: [string, string]) => ({
@@ -528,12 +531,11 @@ const filterJobscity = async () => {
     const data = await response.json();
     console.log("API Response:", data);
 
-    // Process city suggestions
     if (data.city_suggestions) {
       filteredCities.value = data.city_suggestions.map(
         (city: string, index: number) => ({
-          id: index, // Using the index as the ID
-          name: city, // The city name is the string itself
+          id: index,
+          name: city,
         })
       );
     } else {
@@ -595,15 +597,15 @@ const showSuggestionscompany = ref(false);
 
 const selectJob = (jobTitle: string) => {
   inputTitleValue.value = jobTitle;
-  showSuggestions.value = false; // Hide the suggestions after selection
+  showSuggestions.value = false;
 };
 const selectJobcity = (jobTitle: string) => {
   inputCityValue.value = jobTitle;
-  showSuggestionscity.value = false; // Hide the suggestions after selection
+  showSuggestionscity.value = false;
 };
 const selectJobcompany = (jobTitle: string) => {
   inputCompanyValue.value = jobTitle;
-  showSuggestionscompany.value = false; // Hide the suggestions after selection
+  showSuggestionscompany.value = false;
 };
 
 const handleClickOutside = (event: MouseEvent) => {
@@ -662,7 +664,7 @@ onUnmounted(() => {
 
 const clearTitleInput = () => {
   inputTitleValue.value = "";
-  filterJobs(); // Clear the filtered jobs
+  filterJobs();
 };
 
 // const clearTitleInput = () => {
@@ -720,7 +722,7 @@ const discoverJobs = async () => {
     const data = await response.json();
     console.log("Discover API Response:", data.results);
 
-    discoveredProfiles.value = data.results; // Set the discovered profiles
+    discoveredProfiles.value = data.results;
     profiles.value = data;
   } catch (error) {
     console.error("Error fetching jobs on discover:", error);
