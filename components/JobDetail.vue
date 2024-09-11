@@ -61,7 +61,7 @@
         <p class="ml-2 text-xl text-bold">Job Detail</p>
         <div class="my-1 border-t border-gray-500 w-full"></div>
         <!-- <div> -->
-          <!-- <div class="mt-4" v-for="item in profile" :key="item.id">
+        <!-- <div class="mt-4" v-for="item in profile" :key="item.id">
             <div class="flex justify-between items-start">
               <div>
                 <p class="text-black font-semibold text-2xl ml-8">
@@ -127,88 +127,105 @@
               </div>
             </div>
           </div> -->
-          <div class="mt-4" v-for="items in profile" :key="items.id">
-  <div class="flex justify-between items-start">
-    <div>
-      <p class="text-black font-semibold text-2xl ml-8">
-        {{ items.job_title }}
-      </p>
-    </div>
-    <div class="mx-14">
-      <div>
-        
-      {{items.industries}}
-   
-       <button
-            class="bg-blue-600 text-white py-2 w-[500px] rounded-2xl ml-[5rem] mt-3"
-           
-          >
-            {{items.view_count}}
-          </button>
-      </div>
-      <img
-        v-if="items.listing_platform === 'LinkedIn'"
-        src="~/assets/images/linkedinlogo.png"
-        alt="LinkedIn"
-        class="w-20 h-20 inline"
-      />
-      <img
-        v-else-if="items.listing_platform === 'Indeed'"
-        src="~/assets/images/indeed.jpeg"
-        alt="Indeed"
-        class="w-6 h-6 inline"
-      />
-      {{items.listing_platform}}
-    </div>
-  </div>
-</div>
-
-          <button
-            class="bg-blue-600 text-white py-2 w-[500px] rounded-2xl ml-[5rem] mt-3"
-            @click="companyurl"
-          >
-            View Company
-          </button>
-          <div class="flex justify-between mx-6 mt-[6rem]">
-            <div class="pb-8 w-[600px]" v-html="htmlContent"></div>
+        <!-- <div class="mt-4">
             <div>
-              <div
-                v-for="item in profile.data.users_feedback"
-                :key="item.user.id"
+              <p class="text-black font-semibold text-2xl ml-8">
+                {{ profile.data.job_title }}
+              </p>
+            </div>
+            <div class="mx-14">
+              <div>
+                {{ profile.data.industries }}
+                <div>
+                <button class="text-blue-500 font-bold text-4xl py-2 w-[500px] rounded-2xl ml-[5rem] mt-3">
+                  {{ profile.data.view_count }}
+                </button>
+              </div>
+              </div>
+              <img
+                v-if="profile.data.listing_platform === 'LinkedIn'"
+                src="~/assets/images/linkedinlogo.png"
+                alt="LinkedIn"
+                class="w-20 h-20 inline"
+              />
+              <img
+                v-else-if="profile.data.listing_platform === 'Indeed'"
+                src="~/assets/images/indeed.jpeg"
+                alt="Indeed"
+                class="w-6 h-6 inline"
+              />
+              {{ profile.data.listing_platform }}
+            </div>
+          </div> -->
+
+        <div class="flex justify-between mx-6 mt-[2rem]">
+          <div>
+            <div class="pb-8 w-[600px]" v-html="htmlContent"></div>
+            <a
+              class="mb-6 bg-teal-500 hover:bg-teal-600 text-white text-center block rounded-full py-2"
+              href="https://uk.linkedin.com/company/mygwork?trk=public_jobs_topcard-org-name" target="_blank"
+              >View Company</a
+            >
+          </div>
+          <div>
+            <div class="mx-14">
+              <button
+                class="bg-[#0694A2] text-[16px] text-white py-2 rounded-3xl px-6 ml-[5rem]"
               >
-                <div
-                  class="relative bg-[#2C3146] mt-[6rem] w-[300px] rounded-3xl py-4 h-[250px]"
+                Views: {{ profile.data.view_count }}
+              </button>
+              <!-- <div>
+                {{ profile.data.industries }}
+              </div> -->
+              <div class="flex justify-center mt-12">
+                <img
+                  v-if="profile.data.listing_platform === 'LinkedIn'"
+                  src="~/assets/images/linkedinlogo.png"
+                  alt="LinkedIn"
+                  class="w-44 h-44 inline"
+                />
+                <img
+                  v-else-if="profile.data.listing_platform === 'Indeed'"
+                  src="~/assets/images/indeed.jpeg"
+                  alt="Indeed"
+                  class="w-44 h-44 inline"
+                />
+              </div>
+              <div class="text-center text-gray-700 font-normal pt-1">
+                Seniority: {{ profile.data.listing_platform }}
+              </div>
+              <div class="mt-4">
+                <button
+                  class="bg-[#0694A2] hover:bg-[#047481] text-white rounded-3xl w-[15rem] py-2"
                 >
-                  <img
-                    :src="`${baseURL}${item.user.profile}`"
-                    @click="showJobDetail(item.user.id)"
-                    alt="Profile Picture"
-                    class="cursor-pointer hover:shadow-red w-32 h-32 object-cover bg-white rounded-full absolute left-1/2 transform -translate-x-1/2 -top-16 mx-auto"
-                  />
-                  <p
-                    class="absolute top-[4rem] inset-0 text-white text-center font-thin text-xl pt-3"
-                  >
-                    {{ item.user.fname }} {{ item.user.lname }}
-                  </p>
-                  <p
-                    class="absolute top-[100px] inset-0 text-gray-400 font-thin text-[15px] text-center"
-                  >
-                    {{ item.user.email }}
-                  </p>
-                  <p
-                    class="absolute inset-0 top-[8rem] text-white font-medium text-[15px] text-center mt-6"
-                  >
-                    {{ item.user.fname }} FeedBack
-                  </p>
-                  <p
-                    class="absolute inset-0 top-[11rem] text-gray-300 text-center font-thin w-[12rem] mx-auto py-1"
-                  >
-                    {{ item.feedback_text }}
-                  </p>
-                </div>
+                  Apply for this job
+                </button>
+              </div>
+              <div class="mt-4">
+                <p class="text-center text-[#64748B] font-bold">
+                  Admin Feedback
+                </p>
+              </div>
+              <div class="flex justify-center mt-3">
+                <textarea
+                  disabled=""
+                  cols="20"
+                  rows="5"
+                  class="border border-black"
+                >
+                GOOD JOB
+                </textarea>
+              </div>
+              <div class="flex justify-center mt-4">
+                <button
+                  class="bg-[#0694A2] hover:bg-[#047481] text-[15px] text-white rounded-3xl w-44 py-2"
+                >
+                  Add/Update feedback
+                </button>
               </div>
             </div>
           </div>
+        </div>
         <!-- </div> -->
       </div>
     </div>
@@ -275,8 +292,6 @@ const companyurl = async () => {
   }
 };
 
-
-
 const fetchProfile = async (id: string) => {
   loading.value = true;
   error.value = null;
@@ -298,6 +313,7 @@ const fetchProfile = async (id: string) => {
       }
     );
     profile.value = response.data;
+    console.log(response);
     htmlContent.value = response.data.data.job_description;
   } catch (err) {
     error.value = "Error fetching profile data.";
