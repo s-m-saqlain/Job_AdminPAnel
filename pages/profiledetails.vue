@@ -59,10 +59,10 @@
             class="flex justify-between items-center hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
           > -->
           <li>
-            <a
+            <NuxtLink to="/dashboards">
+              <a
               href="#"
               class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#333A48] dark:hover:bg-gray-700 group"
-              @click="loadDashboard"
             >
               <svg
                 class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 dark:group-hover:text-white"
@@ -80,13 +80,14 @@
               </svg>
               <span class="ms-3 text-white">Dashboard</span>
             </a>
+            </NuxtLink>
           </li>
           <!-- </div> -->
           <li>
-            <a
+            <NuxtLink to="/users">
+              <a
               href="#"
               class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#333A48] dark:hover:bg-gray-700 group"
-              @click="loadUsers"
             >
               <svg
                 class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 dark:group-hover:text-white"
@@ -103,12 +104,13 @@
                 >Users</span
               >
             </a>
+            </NuxtLink>
           </li>
           <li>
-            <a
+            <NuxtLink to="/jobs">
+              <a
               href="#"
               class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#333A48] dark:hover:bg-gray-700 group"
-              @click="loadJobs"
             >
               <svg
                 class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 dark:group-hover:text-white"
@@ -123,12 +125,13 @@
               </svg>
               <span class="flex-1 ms-3 whitespace-nowrap text-white">Jobs</span>
             </a>
+            </NuxtLink>
           </li>
           <li>
-            <a
+            <NuxtLink to="/feedback">
+              <a
               href="#"
               class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#333A48] dark:hover:bg-gray-700 group"
-              @click="loadFeedback"
             >
               <svg
                 class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 dark:group-hover:text-white"
@@ -145,12 +148,13 @@
                 >Feedback</span
               >
             </a>
+            </NuxtLink>
           </li>
           <li>
-            <a
+            <NuxtLink to="/profile">
+               <a
               href="#"
               class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#333A48] dark:hover:bg-gray-700 group"
-              @click="loadProfile"
             >
               <svg
                 class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 dark:group-hover:text-white"
@@ -167,6 +171,7 @@
                 >Profile</span
               >
             </a>
+            </NuxtLink>
           </li>
           <li>
             <a
@@ -245,25 +250,6 @@
     <div v-if="error" class="text-red-500 text-center">{{ error }}</div>
     <div v-if="!currentProfile && profile" class="profile-detail">
       <div class="lg:flex justify-start items-center">
-        <button
-          @click="$emit('back')"
-          class="uppercase bg-red-500 text-white rounded-md px-3 py-3 font-semibold lg:mb-[3rem] sm:mb-12 mb-[3rem]"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            class="w-6 h-6"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="4"
-              d="M15 19l-7-7 7-7"
-            />
-          </svg>
-        </button>
       </div>
       <div class="lg:flex justify-between items-center">
         <div class="lg:flex justify-start gap-3">
@@ -383,6 +369,9 @@
 <script setup lang="ts">
 import { ref, watch, onMounted, computed } from "vue";
 import axios from "axios";
+import { useRoute } from 'vue-router';
+const route = useRoute();
+
 import JobDetail from "~/pages/jobdetail.vue";
 
 const isActive = ref<boolean>(true);
@@ -462,8 +451,9 @@ const showProfiles = () => {
 };
 
 onMounted(() => {
-  if (props.profileId) {
-    fetchProfile(props.profileId);
+  const id = route.query.id as string;
+  if (id) {
+    fetchProfile(id);
   }
 });
 

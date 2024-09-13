@@ -59,10 +59,10 @@
             class="flex justify-between items-center hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
           > -->
           <li>
-            <a
+            <NuxtLink to="/dashboards">
+              <a
               href="#"
               class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#333A48] dark:hover:bg-gray-700 group"
-              @click="loadDashboard"
             >
               <svg
                 class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 dark:group-hover:text-white"
@@ -80,13 +80,14 @@
               </svg>
               <span class="ms-3 text-white">Dashboard</span>
             </a>
+            </NuxtLink>
           </li>
           <!-- </div> -->
           <li>
-            <a
+            <NuxtLink to="/users">
+              <a
               href="#"
               class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#333A48] dark:hover:bg-gray-700 group"
-              @click="loadUsers"
             >
               <svg
                 class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 dark:group-hover:text-white"
@@ -103,12 +104,13 @@
                 >Users</span
               >
             </a>
+            </NuxtLink>
           </li>
           <li>
-            <a
+            <NuxtLink to="/jobs">
+              <a
               href="#"
               class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#333A48] dark:hover:bg-gray-700 group"
-              @click="loadJobs"
             >
               <svg
                 class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 dark:group-hover:text-white"
@@ -123,12 +125,13 @@
               </svg>
               <span class="flex-1 ms-3 whitespace-nowrap text-white">Jobs</span>
             </a>
+            </NuxtLink>
           </li>
           <li>
-            <a
+            <NuxtLink to="/feedback">
+              <a
               href="#"
               class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#333A48] dark:hover:bg-gray-700 group"
-              @click="loadFeedback"
             >
               <svg
                 class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 dark:group-hover:text-white"
@@ -145,12 +148,13 @@
                 >Feedback</span
               >
             </a>
+            </NuxtLink>
           </li>
           <li>
-            <a
+            <NuxtLink to="/profile">
+               <a
               href="#"
               class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#333A48] dark:hover:bg-gray-700 group"
-              @click="loadProfile"
             >
               <svg
                 class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 dark:group-hover:text-white"
@@ -167,6 +171,7 @@
                 >Profile</span
               >
             </a>
+            </NuxtLink>
           </li>
           <li>
             <a
@@ -287,24 +292,31 @@
           <p class="absolute inset-0 top-[140px] text-gray-400">
             {{ profile.email }}
           </p>
-          <div
+          <NuxtLink :to="{ path: '/profiledetails', query: { id: profile.id } }">
+            <div
             class="flex justify-center items-center absolute inset-0 top-[9rem]"
           >
             <button
-              @click="viewMore(profile.id)"
               class="uppercase bg-green-500 text-white w-[9rem] rounded-md font-semibold py-2 mt-4"
             >
               View More
             </button>
+            <!-- <button
+              @click="viewMore(profile.id)"
+              class="uppercase bg-green-500 text-white w-[9rem] rounded-md font-semibold py-2 mt-4"
+            >
+              View More
+            </button> -->
           </div>
+          </NuxtLink>
         </div>
       </div>
     </div>
-    <ProfileDetail
+    <!-- <ProfileDetail
       v-if="currentProfile"
       :profileId="currentProfile"
       @back="showProfiles"
-    />
+    /> -->
     <div
       v-if="!currentProfile"
       class="flex justify-center items-center gap-6 mt-5"
@@ -332,7 +344,7 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from "vue";
 import axios from "axios";
-import ProfileDetail from "./profiledetails.vue";
+// import ProfileDetail from "./profiledetails.vue";
 
 interface Profile {
   id: number;
@@ -376,13 +388,13 @@ const fetchProfiles = async (
   }
 };
 
-const viewMore = (profileId: number) => {
-  currentProfile.value = profileId;
-};
+// const viewMore = (profileId: number) => {
+//   currentProfile.value = profileId;
+// };
 
-const showProfiles = () => {
-  currentProfile.value = null;
-};
+// const showProfiles = () => {
+//   currentProfile.value = null;
+// };
 
 onMounted(fetchProfiles);
 
