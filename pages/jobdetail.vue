@@ -1,5 +1,5 @@
 <template>
-<div>
+  <div>
     <button
       @click="toggleSidebar"
       data-drawer-target="default-sidebar"
@@ -61,121 +61,123 @@
           <li>
             <NuxtLink to="/dashboards">
               <a
-              href="#"
-              class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#333A48] dark:hover:bg-gray-700 group"
-              @click="loadDashboard"
-            >
-              <svg
-                class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 dark:group-hover:text-white"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                viewBox="0 0 22 21"
+                href="#"
+                class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#333A48] dark:hover:bg-gray-700 group"
+                @click="loadDashboard"
               >
-                <path
-                  d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z"
-                />
-                <path
-                  d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z"
-                />
-              </svg>
-              <span class="ms-3 text-white">Dashboard</span>
-            </a>
+                <svg
+                  class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 dark:group-hover:text-white"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 22 21"
+                >
+                  <path
+                    d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z"
+                  />
+                  <path
+                    d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z"
+                  />
+                </svg>
+                <span class="ms-3 text-white">Dashboard</span>
+              </a>
             </NuxtLink>
           </li>
           <!-- </div> -->
           <li>
             <NuxtLink to="/users">
               <a
-              href="#"
-              class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#333A48] dark:hover:bg-gray-700 group"
-              @click="loadUsers"
-            >
-              <svg
-                class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 dark:group-hover:text-white"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                viewBox="0 0 20 18"
+                href="#"
+                class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#333A48] dark:hover:bg-gray-700 group"
+                @click="loadUsers"
               >
-                <path
-                  d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z"
-                />
-              </svg>
-              <span class="flex-1 ms-3 whitespace-nowrap text-white"
-                >Users</span
-              >
-            </a>
+                <svg
+                  class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 dark:group-hover:text-white"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 20 18"
+                >
+                  <path
+                    d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z"
+                  />
+                </svg>
+                <span class="flex-1 ms-3 whitespace-nowrap text-white"
+                  >Users</span
+                >
+              </a>
             </NuxtLink>
           </li>
           <li>
             <NuxtLink to="/jobs">
               <a
-              href="#"
-              class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#333A48] dark:hover:bg-gray-700 group"
-              @click="loadJobs"
-            >
-              <svg
-                class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 dark:group-hover:text-white"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                viewBox="0 0 20 18"
+                href="#"
+                class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#333A48] dark:hover:bg-gray-700 group"
+                @click="loadJobs"
               >
-                <path
-                  d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z"
-                />
-              </svg>
-              <span class="flex-1 ms-3 whitespace-nowrap text-white">Jobs</span>
-            </a>
+                <svg
+                  class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 dark:group-hover:text-white"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 20 18"
+                >
+                  <path
+                    d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z"
+                  />
+                </svg>
+                <span class="flex-1 ms-3 whitespace-nowrap text-white"
+                  >Jobs</span
+                >
+              </a>
             </NuxtLink>
           </li>
           <li>
             <NuxtLink to="/feedback">
               <a
-              href="#"
-              class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#333A48] dark:hover:bg-gray-700 group"
-              @click="loadFeedback"
-            >
-              <svg
-                class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 dark:group-hover:text-white"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                viewBox="0 0 20 18"
+                href="#"
+                class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#333A48] dark:hover:bg-gray-700 group"
+                @click="loadFeedback"
               >
-                <path
-                  d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z"
-                />
-              </svg>
-              <span class="flex-1 ms-3 whitespace-nowrap text-white"
-                >Feedback</span
-              >
-            </a>
+                <svg
+                  class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 dark:group-hover:text-white"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 20 18"
+                >
+                  <path
+                    d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z"
+                  />
+                </svg>
+                <span class="flex-1 ms-3 whitespace-nowrap text-white"
+                  >Feedback</span
+                >
+              </a>
             </NuxtLink>
           </li>
           <li>
             <NuxtLink to="/profile">
               <a
-              href="#"
-              class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#333A48] dark:hover:bg-gray-700 group"
-              @click="loadProfile"
-            >
-              <svg
-                class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 dark:group-hover:text-white"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                viewBox="0 0 18 20"
+                href="#"
+                class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#333A48] dark:hover:bg-gray-700 group"
+                @click="loadProfile"
               >
-                <path
-                  d="M17 5.923A1 1 0 0 0 16 5h-3V4a4 4 0 1 0-8 0v1H2a1 1 0 0 0-1 .923L.086 17.846A2 2 0 0 0 2.08 20h13.84a2 2 0 0 0 1.994-2.153L17 5.923ZM7 9a1 1 0 0 1-2 0V7h2v2Zm0-5a2 2 0 1 1 4 0v1H7V4Zm6 5a1 1 0 1 1-2 0V7h2v2Z"
-                />
-              </svg>
-              <span class="flex-1 ms-3 whitespace-nowrap text-white"
-                >Profile</span
-              >
-            </a>
+                <svg
+                  class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 dark:group-hover:text-white"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 18 20"
+                >
+                  <path
+                    d="M17 5.923A1 1 0 0 0 16 5h-3V4a4 4 0 1 0-8 0v1H2a1 1 0 0 0-1 .923L.086 17.846A2 2 0 0 0 2.08 20h13.84a2 2 0 0 0 1.994-2.153L17 5.923ZM7 9a1 1 0 0 1-2 0V7h2v2Zm0-5a2 2 0 1 1 4 0v1H7V4Zm6 5a1 1 0 1 1-2 0V7h2v2Z"
+                  />
+                </svg>
+                <span class="flex-1 ms-3 whitespace-nowrap text-white"
+                  >Profile</span
+                >
+              </a>
             </NuxtLink>
           </li>
           <li>
@@ -228,68 +230,49 @@
         </div>
       </div>
       <div>
-    <div
-      v-if="!currentProfile && profile"
-      class="flex justify-between items-center"
-    >
-      <h1 class="text-4xl font-semibold">Job Detail</h1>
-      <div class="flex justify-between items-center gap-1">
-        <p class="text-xl font-thin">Dashboard</p>
-        <div class="text-xl font-thin">/</div>
-        <p class="text-xl font-thin text-green-500">Job Detail</p>
-      </div>
-    </div>
-    <div class="container bg-gray-200 h-full mt-6">
-      <div v-if="loading" role="status" class="h-screen">
-        <div class="flex justify-center items-center">
-          <div class="pt-[12rem]">
-            <svg
-              aria-hidden="true"
-              class="w-20 h-20 text-blue-500 animate-spin dark:text-gray-600 fill-blue-600"
-              viewBox="0 0 100 101"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                fill="currentColor"
-              />
-              <path
-                d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                fill="currentFill"
-              />
-            </svg>
-            <span class="text-blue-500 text-2xl font-normal">Loading...</span>
+        <div
+          v-if="!currentProfile && profile"
+          class="flex justify-between items-center"
+        >
+          <h1 class="text-4xl font-semibold">Job Detail</h1>
+          <div class="flex justify-between items-center gap-1">
+            <p class="text-xl font-thin">Dashboard</p>
+            <div class="text-xl font-thin">/</div>
+            <p class="text-xl font-thin text-green-500">Job Detail</p>
           </div>
         </div>
-      </div>
-      <div v-if="error" class="text-red-500 text-center">{{ error }}</div>
-      <div v-if="!currentProfile && profile" class="profile-detail">
-        <div class="lg:flex justify-start items-center ml-2 pt-6">
-          <button
-            @click="$emit('back')"
-            class="uppercase bg-red-500 text-white rounded-md px-3 py-3 font-semibold lg:mb-[3rem] sm:mb-12 mb-[3rem]"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              class="w-6 h-6"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="4"
-                d="M15 19l-7-7 7-7"
-              />
-            </svg>
-          </button>
-        </div>
-        <p class="ml-2 text-xl text-bold">Job Detail</p>
-        <div class="my-1 border-t border-gray-500 w-full"></div>
-        <!-- <div> -->
-        <!-- <div class="mt-4" v-for="item in profile" :key="item.id">
+        <div class="container bg-gray-200 h-full mt-6">
+          <div v-if="loading" role="status" class="h-screen">
+            <div class="flex justify-center items-center">
+              <div class="pt-[12rem]">
+                <svg
+                  aria-hidden="true"
+                  class="w-20 h-20 text-blue-500 animate-spin dark:text-gray-600 fill-blue-600"
+                  viewBox="0 0 100 101"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                    fill="currentColor"
+                  />
+                  <path
+                    d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                    fill="currentFill"
+                  />
+                </svg>
+                <span class="text-blue-500 text-2xl font-normal"
+                  >Loading...</span
+                >
+              </div>
+            </div>
+          </div>
+          <div v-if="error" class="text-red-500 text-center">{{ error }}</div>
+          <div v-if="!currentProfile && profile" class="profile-detail">
+            <p class="ml-2 text-xl text-bold">Job Detail</p>
+            <div class="my-1 border-t border-gray-500 w-full"></div>
+            <!-- <div> -->
+            <!-- <div class="mt-4" v-for="item in profile" :key="item.id">
             <div class="flex justify-between items-start">
               <div>
                 <p class="text-black font-semibold text-2xl ml-8">
@@ -355,7 +338,7 @@
               </div>
             </div>
           </div> -->
-        <!-- <div class="mt-4">
+            <!-- <div class="mt-4">
             <div>
               <p class="text-black font-semibold text-2xl ml-8">
                 {{ profile.data.job_title }}
@@ -386,95 +369,107 @@
             </div>
           </div> -->
 
-        <div class="flex justify-between mx-6 mt-[2rem]">
-          <div>
-            <div class="pb-8 w-[600px]" v-html="htmlContent"></div>
-            <a
-              class="mb-6 bg-teal-500 hover:bg-teal-600 text-white text-center block rounded-full py-2"
-              href="https://uk.linkedin.com/company/mygwork?trk=public_jobs_topcard-org-name" target="_blank"
-              >View Company</a
-            >
-          </div>
-          <div>
-            <div class="mx-14">
-              <button
-                class="bg-[#0694A2] text-[16px] text-white py-2 rounded-3xl px-6 ml-[5rem]"
-              >
-                Views: {{ profile.data.view_count }}
-              </button>
-              <!-- <div>
+            <div class="flex justify-between mx-6 mt-[2rem]">
+              <div>
+                <div class="pb-8 w-[600px]" v-html="htmlContent"></div>
+                <a
+                  class="mb-6 bg-teal-500 hover:bg-teal-600 text-white text-center block rounded-full py-2"
+                  href="https://uk.linkedin.com/company/mygwork?trk=public_jobs_topcard-org-name"
+                  target="_blank"
+                  >View Company</a
+                >
+              </div>
+              <div>
+                <div class="mx-14">
+                  <button
+                    class="bg-[#0694A2] text-[16px] text-white py-2 rounded-3xl px-6 ml-[5rem]"
+                  >
+                    Views: {{ profile.data.view_count }}
+                  </button>
+                  <!-- <div>
                 {{ profile.data.industries }}
               </div> -->
-              <div class="flex justify-center mt-12">
-                <img
-                  v-if="profile.data.listing_platform === 'LinkedIn'"
-                  src="~/assets/images/linkedinlogo.png"
-                  alt="LinkedIn"
-                  class="w-44 h-44 inline"
-                />
-                <img
-                  v-else-if="profile.data.listing_platform === 'Indeed'"
-                  src="~/assets/images/indeed.jpeg"
-                  alt="Indeed"
-                  class="w-44 h-44 inline"
-                />
-              </div>
-              <div class="text-center text-gray-700 font-normal pt-1">
-                Seniority: {{ profile.data.listing_platform }}
-              </div>
-              <div class="mt-4">
-                <button
-                  class="bg-[#0694A2] hover:bg-[#047481] text-white rounded-3xl w-[15rem] py-2"
-                >
-                  Apply for this job
-                </button>
-              </div>
-              <div class="mt-4">
-                <p class="text-center text-[#64748B] font-bold">
-                  Admin Feedback
-                </p>
-              </div>
-              <div class="flex justify-center mt-3">
-                <textarea
-                  disabled=""
-                  cols="20"
-                  rows="5"
-                  class="border border-black"
-                >
+                  <div class="flex justify-center mt-12">
+                    <img
+                      v-if="profile.data.listing_platform === 'LinkedIn'"
+                      src="~/assets/images/linkedinlogo.png"
+                      alt="LinkedIn"
+                      class="w-44 h-44 inline"
+                    />
+                    <img
+                      v-else-if="profile.data.listing_platform === 'Indeed'"
+                      src="~/assets/images/indeed.jpeg"
+                      alt="Indeed"
+                      class="w-44 h-44 inline"
+                    />
+                  </div>
+                  <div class="text-center text-gray-700 font-normal pt-1">
+                    Seniority: {{ profile.data.listing_platform }}
+                  </div>
+                  <div class="mt-4">
+                    <button
+                      class="bg-[#0694A2] hover:bg-[#047481] text-white rounded-3xl w-[15rem] py-2"
+                    >
+                      Apply for this job
+                    </button>
+                  </div>
+                  <div class="mt-4">
+                    <p class="text-center text-[#64748B] font-bold">
+                      Admin Feedback
+                    </p>
+                  </div>
+                  <div class="flex justify-center mt-3">
+                    <textarea
+                      disabled=""
+                      cols="20"
+                      rows="5"
+                      class="border border-black"
+                    >
                 GOOD JOB
-                </textarea>
-              </div>
-              <div class="flex justify-center mt-4">
-                <button
-                  class="bg-[#0694A2] hover:bg-[#047481] text-[15px] text-white rounded-3xl w-44 py-2"
-                >
-                  Add/Update feedback
-                </button>
+                </textarea
+                    >
+                  </div>
+                  <div class="flex justify-center mt-4">
+                    <button
+                      class="bg-[#0694A2] hover:bg-[#047481] text-[15px] text-white rounded-3xl w-44 py-2"
+                    >
+                      Add/Update feedback
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
+            <!-- </div> -->
           </div>
         </div>
-        <!-- </div> -->
+        <ProfileDetail
+          v-if="currentProfile"
+          :profileId="currentProfile"
+          @back="showProfiles"
+        />
       </div>
-    </div>
-    <ProfileDetail
-      v-if="currentProfile"
-      :profileId="currentProfile"
-      @back="showProfiles"
-    />
-  </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, watch, computed, onMounted, onBeforeUnmount } from "vue";
+import {
+  ref,
+  reactive,
+  watch,
+  computed,
+  onMounted,
+  onBeforeUnmount,
+} from "vue";
 import DOMPurify from "dompurify";
 import axios from "axios";
 import ProfileDetail from "./profiledetails.vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
+
+import { useRoute } from 'vue-router';
+const route = useRoute();
 
 interface ProfileData {
   id: string;
@@ -562,8 +557,9 @@ const showProfiles = () => {
 };
 
 onMounted(() => {
-  if (props.profileId) {
-    fetchProfile(props.profileId);
+  const id = route.query.id as string;
+  if (id) {
+    fetchProfile(id);
   }
 });
 
@@ -592,7 +588,6 @@ watch(
   },
   { immediate: true }
 );
-
 
 const sidebarOpen = ref<boolean>(false);
 

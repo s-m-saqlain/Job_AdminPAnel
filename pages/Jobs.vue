@@ -642,11 +642,11 @@
             />
           </div>
         </div>
-        <JobDetail
+        <!-- <JobDetail
           v-if="currentProfile"
           :profileId="currentProfile"
           @back="showProfiles"
-        />
+        /> -->
         <div
           v-if="!currentProfile"
           class="flex justify-center items-center gap-6 mt-5"
@@ -1038,9 +1038,9 @@ const handleClick = async (profile: Profile): Promise<void> => {
   }
 };
 
-const viewMore = (profileId: string): void => {
-  currentProfile.value = profileId;
-};
+// const viewMore = (profileId: string): void => {
+//   currentProfile.value = profileId;
+// };
 
 const showPopup = (): void => {
   isPopupVisible.value = true;
@@ -1055,9 +1055,9 @@ const hidePopup = (): void => {
   isPopupVisible.value = false;
 };
 
-const showProfiles = (): void => {
-  currentProfile.value = null;
-};
+// const showProfiles = (): void => {
+//   currentProfile.value = null;
+// };
 
 onMounted(fetchProfiles);
 
