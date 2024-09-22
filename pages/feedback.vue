@@ -59,7 +59,7 @@
             class="flex justify-between items-center hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
           > -->
           <li>
-            <NuxtLink to="/dashboards">
+            <NuxtLink to="/dashboard">
             <a
               href="#"
               class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#333A48] dark:hover:bg-gray-700 group"
@@ -263,18 +263,20 @@
         :key="feedback.job_id"
         class="relative bg-[#2C3146] p-4 rounded-2xl shadow-md mt-[1rem] sm:h-[190px] h-[270px] lg:w-[520px] sm:w-96 w-[260px] lg:mx-0 sm:mx-8 mx-auto"
       >
+     <!-- <p class="text-green-500"> {{feedback.user_detail.id}}</p> -->
         <img
           :src="`${baseURL}${feedback.user_detail.profile}`"
           alt="Profile Picture"
           class="absolute inset-0 sm:top-[57px] top-[95px] lg:-left-[510px] sm:-left-[390px] -left-[260px] w-20 h-20 object-cover rounded-full mx-auto"
         />
         <div class="text-center mt-4">
+          <NuxtLink :to="{ path: '/jobdetail', query: { id: feedback.job_id } }">
           <h3
             class="sm:w-[350px] mx-auto absolute inset-0 top-[2rem] font-semibold text-[18px] text-white sm:px-0 px-10"
-            @click="showJobDetail(feedback.job_id)" 
             >
             {{ feedback.job_title }}
           </h3>
+          </NuxtLink>
           <p
             class="absolute inset-0 sm:top-[100px] top-[160px] font-thin text-gray-100"
           >
@@ -286,12 +288,13 @@
           >
             {{ feedback.user_detail.email }}
           </p>
+          <NuxtLink :to="{ path: '/profiledetails', query: { id: feedback.user_detail.id} }">
           <p
             class="absolute inset-0 sm:top-[150px] top-[230px] text-white font-medium sm:pt-2 pt-2 bg-pink-500 h-10"
-            @click="showProfileDetail(feedback.user_detail.id)" 
           >
             {{ feedback.feedback_text }}
           </p>
+          </NuxtLink>
         </div>
       </div>
     </div>
@@ -324,16 +327,6 @@
           </div>
         </div>
       </div> -->
-      <JobDetail
-      v-if="currentProfile"
-      :profileId="currentProfile"
-      @back="showProfiles"
-    />
-    <ProfileDetail
-      v-if="currentProfile1"
-      :profileId="currentProfile1"
-      @back="showProfiles1"
-    />
   </div>
     </div>
   </div>
@@ -344,9 +337,6 @@ import axios from "axios";
 import { ref, computed, onMounted } from "vue";
 const currentProfile = ref<string | null>(null);
 const currentProfile1 = ref<string | null>(null);
-
-import JobDetail from "./jobdetail.vue";
-import ProfileDetail from "./profiledetails.vue"
 
 interface Feedback {
   id: number;
@@ -367,22 +357,6 @@ interface FeedbackResponse {
 const dashboardData = ref<FeedbackResponse | null>(null);
 const loading = ref<boolean>(true);
 const error = ref<string | null>(null);
-
-const showJobDetail = (profileId: string) => {
-  currentProfile.value = profileId;
-};
-
-const showProfileDetail = (profileId: string) => {
-  currentProfile1.value = profileId;
-};
-
-const showProfiles = () => {
-  currentProfile.value = null;
-};
-
-const showProfiles1 = () => {
-  currentProfile1.value = null;
-};
 
 import { useRuntimeConfig } from "#app";
 // import { ProfileDetail } from "#build/components";

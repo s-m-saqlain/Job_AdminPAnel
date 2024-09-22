@@ -8,7 +8,6 @@ export default defineNuxtConfig({
     }
   },
 
-  // plugins: ['~/plugins/auth.ts'],
   css: ['~/assets/css/main.css'],
 
   postcss: {

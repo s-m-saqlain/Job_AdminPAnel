@@ -59,7 +59,7 @@
             class="flex justify-between items-center hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
           > -->
           <li>
-            <NuxtLink to="/dashboards">
+            <NuxtLink to="/dashboard">
               <a
                 href="#"
                 class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#333A48] dark:hover:bg-gray-700 group"

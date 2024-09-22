@@ -59,7 +59,7 @@
             class="flex justify-between items-center hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
           > -->
           <li>
-            <NuxtLink to="/dashboards">
+            <NuxtLink to="/dashboard">
               <a
               href="#"
               class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#333A48] dark:hover:bg-gray-700 group"
@@ -317,15 +317,19 @@
           v-for="item in profile.all_feedbacks"
           :key="item.id"
         >
+        <!-- {{item.job_id}} -->
+        <NuxtLink :to="{ path: '/jobdetail', query: { id: item.job_id } }">
           <p
             class="text-black font-bold text-gray-500 w-full"
-            @click="showJobDetail(item.job_id)"
           >
             {{ item.job_title }}
           </p>
-          <p class="text-gray-500" @click="showJobDetail(item.job_id)">
+          </NuxtLink>
+          <NuxtLink to="/jobdetail">
+          <p class="text-gray-500">
             {{ item.feedback_text }}
           </p>
+          </NuxtLink>
           <div class="border-b border-b-gray-400 mt-6"></div>
         </div>
       </div>
@@ -333,12 +337,13 @@
         <div>
           <p class="text-2xl font-medium text-gray-500">Viewed Jobs:</p>
           <div class="mt-6" v-for="item in profile.viewed_jobs" :key="item.id">
+            <NuxtLink :to="{ path: '/jobdetail', query: { id: item.job_id } }">
             <p
               class="text-black font-medium text-white bg-black rounded-md px-4 py-3 cursor-pointer"
-              @click="showJobDetail(item.job_id)"
             >
               {{ item.job_title }}
             </p>
+            </NuxtLink>
           </div>
         </div>
         <div>
@@ -346,21 +351,17 @@
             Saved Jobs:
           </p>
           <div class="mt-6" v-for="item in profile.saved_jobs" :key="item.id">
+            <NuxtLink :to="{ path: '/jobdetail', query: { id: item.job_id } }">
             <p
               class="text-black font-medium text-white bg-gray-500 rounded-md px-4 py-3 cursor-pointer"
-              @click="showJobDetail(item.job_id)"
             >
               {{ item.job_title }}
             </p>
+            </NuxtLink>
           </div>
         </div>
       </div>
     </div>
-    <JobDetail
-      v-if="currentProfile"
-      :profileId="currentProfile"
-      @back="showProfiles"
-    />
   </div>
     </div>
   </div>
@@ -371,8 +372,6 @@ import { ref, watch, onMounted, computed } from "vue";
 import axios from "axios";
 import { useRoute } from 'vue-router';
 const route = useRoute();
-
-import JobDetail from "~/pages/jobdetail.vue";
 
 const isActive = ref<boolean>(true);
 
@@ -440,14 +439,6 @@ const updateProfileStatus = async () => {
     error.value = "Error updating profile status.";
     console.error(err);
   }
-};
-
-const showJobDetail = (profileId: string) => {
-  currentProfile.value = profileId;
-};
-
-const showProfiles = () => {
-  currentProfile.value = null;
 };
 
 onMounted(() => {

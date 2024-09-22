@@ -116,7 +116,7 @@ const login = async (): Promise<void> => {
     console.log(token);
     localStorage.setItem("token", token);
     console.log(response.data);
-    router.push("/dashboards");
+    router.push("/dashboard");
   } catch (error) {
     errorMessage.value = "Login failed. Please check your credentials.";
     console.error(error);
